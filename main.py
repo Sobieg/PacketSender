@@ -69,23 +69,23 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
     def tcpSourcePortChanged(self, nValue):
         # TODO: actually change the value
-        self.statusBar.showMessage("Tcp SRC port changed to " + str(nValue), 2000)
+        self.statusBar.showMessage("TCP SRC port changed to " + str(nValue), 2000)
 
     def tcpDestinationPortChanged(self, nValue):
         # TODO: actually change the value
-        self.statusBar.showMessage("Tcp DST port changed to " + str(nValue), 2000)
+        self.statusBar.showMessage("TCP DST port changed to " + str(nValue), 2000)
 
     def tcpSEQNumChanged(self, nValue):
         # TODO: actually change the value
-        self.statusBar.showMessage("Tcp SEQ changed to " + str(nValue), 2000)
+        self.statusBar.showMessage("TCP SEQ changed to " + str(nValue), 2000)
         
     def tcpACKChanged(self, nValue):
         # TODO: actually change the value
-        self.statusBar.showMessage("Tcp ACK changed to " + str(nValue), 2000)
+        self.statusBar.showMessage("TCP ACK changed to " + str(nValue), 2000)
 
     def tcpDataOffsetChanged(self, nValue):
         # TODO: actually change the value
-        self.statusBar.showMessage("Tcp Data Offset changed to " + str(nValue), 2000)
+        self.statusBar.showMessage("TCP Data Offset changed to " + str(nValue), 2000)
 
     def tcpRes1Changed(self, nState):
         # TODO: actually change the value
@@ -138,7 +138,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
     def tcpWINChanged(self, nValue):
         # TODO: actually change the value
-        self.statusBar.showMessage("Tcp WIN changed to " + str(nValue), 2000)
+        self.statusBar.showMessage("TCP WIN changed to " + str(nValue), 2000)
 
     def tcpChecksumChanged(self, nValue):
         # TODO: actually change the value
@@ -147,7 +147,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
     def tcpUrgentChanged(self, nValue):
         # TODO: actually change the value
-        self.statusBar.showMessage("Tcp Urgent changed to " + str(nValue), 2000)
+        self.statusBar.showMessage("TCP Urgent changed to " + str(nValue), 2000)
 
     def tcpOptionsAddNopsChanged(self, nState):
         # TODO: actually add the nops
@@ -163,7 +163,27 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
             self.statusBar.showMessage("Removed timestamp from the TCP Packet", 2000)
 
     def tcpDataChanged(self):
-        
+        self.statusBar.showMessage("TCP data changed", 2000)
+
+    def udpSourcePortChanged(self, nValue):
+        # TODO: actually change the value
+        self.statusBar.showMessage("UDP SRC port changed to " + str(nValue), 2000)
+
+    def udpDestinationPortChanged(self, nValue):
+        # TODO: actually change the value
+        self.statusBar.showMessage("UDP DST port changed to " + str(nValue), 2000)
+
+    def udpLengthChanged(self, nValue):
+        # TODO: actually change the value
+        self.statusBar.showMessage("UDP length port changed to " + str(nValue), 2000)
+
+    def udpChecksumChanged(self, nValue):
+        # TODO: actually change the value
+        #       dont think that is important print message, that checksum changed
+        pass
+    
+    def udpDataChanged(self):
+        self.statusBar.showMessage("UDP data changed", 2000)
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
