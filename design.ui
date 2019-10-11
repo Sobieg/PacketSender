@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1440</width>
-    <height>794</height>
+    <height>855</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,6 +25,9 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
+        <property name="usesScrollButtons">
+         <bool>false</bool>
+        </property>
         <widget class="QWidget" name="tcp">
          <attribute name="title">
           <string>TCP</string>
@@ -35,14 +38,14 @@
             <item row="0" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_9">
               <item>
-               <widget class="QLabel" name="label_5">
+               <widget class="QLabel" name="label_tcp_SRCPort">
                 <property name="text">
                  <string>SRC Port</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxSrcPort_TCP">
+               <widget class="QSpinBox" name="spinBox_tcp_SRCPort">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -74,14 +77,14 @@
             <item row="1" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
-               <widget class="QLabel" name="label_4">
+               <widget class="QLabel" name="label_tcp_DSTPort">
                 <property name="text">
                  <string>DST Port</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxDstPort_TCP">
+               <widget class="QSpinBox" name="spinBox_tcp_DSTPort">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -116,14 +119,14 @@
             <item row="2" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_10">
               <item>
-               <widget class="QLabel" name="label_6">
+               <widget class="QLabel" name="label_tcp_SEQNum">
                 <property name="text">
                  <string>SEQ Number</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxSEQ">
+               <widget class="QSpinBox" name="spinBox_tcp_SEQ">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -158,14 +161,14 @@
             <item row="3" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_11">
               <item>
-               <widget class="QLabel" name="label_7">
+               <widget class="QLabel" name="label_tcp_ACKNum">
                 <property name="text">
                  <string>ACK Number</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxACK">
+               <widget class="QSpinBox" name="spinBox_tcp_ACK">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -200,14 +203,14 @@
             <item row="4" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_12">
               <item>
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="label_tcp_DataOffset">
                 <property name="text">
                  <string>Data Offset</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxDataOffset">
+               <widget class="QSpinBox" name="spinBox_tcp_DataOffset">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -242,7 +245,7 @@
             <item row="5" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_13">
               <item>
-               <widget class="QLabel" name="label_9">
+               <widget class="QLabel" name="label_tcp_ReservetBits">
                 <property name="text">
                  <string>Reserved bits</string>
                 </property>
@@ -251,42 +254,42 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
-                 <widget class="QCheckBox" name="checkBox_Reserved1">
+                 <widget class="QCheckBox" name="checkBox_tcp_Res1">
                   <property name="text">
                    <string>Res 1</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_Reserved2">
+                 <widget class="QCheckBox" name="checkBox_tcp_Res2">
                   <property name="text">
                    <string>Res 2</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_Reserved3">
+                 <widget class="QCheckBox" name="checkBox_tcp_Res3">
                   <property name="text">
                    <string>Res 3</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_Reserved4">
+                 <widget class="QCheckBox" name="checkBox_tcp_Res4">
                   <property name="text">
                    <string>Res 4</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_Reserved5">
+                 <widget class="QCheckBox" name="checkBox_tcp_CWR">
                   <property name="text">
                    <string>CWR</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_Reserved6">
+                 <widget class="QCheckBox" name="checkBox_tcp_ECE">
                   <property name="text">
                    <string>ECE</string>
                   </property>
@@ -299,7 +302,7 @@
             <item row="6" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_14">
               <item>
-               <widget class="QLabel" name="label_10">
+               <widget class="QLabel" name="label_tcp_ControlBits">
                 <property name="text">
                  <string>Control bits</string>
                 </property>
@@ -308,42 +311,42 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item>
-                 <widget class="QCheckBox" name="checkBox_">
+                 <widget class="QCheckBox" name="checkBox_tcp_URG">
                   <property name="text">
                    <string>URG</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_ACK">
+                 <widget class="QCheckBox" name="checkBox_tcp_ACK">
                   <property name="text">
                    <string>ACK</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_PSH">
+                 <widget class="QCheckBox" name="checkBox_tcp_PSH">
                   <property name="text">
                    <string>PSH</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_RST">
+                 <widget class="QCheckBox" name="checkBox_tcp_RST">
                   <property name="text">
                    <string>RST</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_SYN">
+                 <widget class="QCheckBox" name="checkBox_tcp_SYN">
                   <property name="text">
                    <string>SYN</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_FIN">
+                 <widget class="QCheckBox" name="checkBox_tcp_FIN">
                   <property name="text">
                    <string>FIN</string>
                   </property>
@@ -356,14 +359,14 @@
             <item row="7" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_15">
               <item>
-               <widget class="QLabel" name="label_11">
+               <widget class="QLabel" name="label_tcp_WIN">
                 <property name="text">
                  <string>Window size</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxWIN">
+               <widget class="QSpinBox" name="spinBox_tcp_WIN">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -398,56 +401,28 @@
             <item row="8" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_16">
               <item>
-               <widget class="QLabel" name="label_12">
+               <widget class="QLabel" name="label_tcp_Checksum">
                 <property name="text">
                  <string>Checksum</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxChecksum_TCP">
-                <property name="focusPolicy">
-                 <enum>Qt::WheelFocus</enum>
-                </property>
-                <property name="contextMenuPolicy">
-                 <enum>Qt::DefaultContextMenu</enum>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;SRC port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="whatsThis">
-                 <string/>
-                </property>
-                <property name="buttonSymbols">
-                 <enum>QAbstractSpinBox::NoButtons</enum>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="minimum">
-                 <number>0</number>
-                </property>
-                <property name="maximum">
-                 <number>2147483646</number>
-                </property>
-                <property name="displayIntegerBase">
-                 <number>10</number>
-                </property>
-               </widget>
+               <widget class="QLineEdit" name="lineEdit_tcp_Checksum"/>
               </item>
              </layout>
             </item>
             <item row="9" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_17">
               <item>
-               <widget class="QLabel" name="label_13">
+               <widget class="QLabel" name="label_tcp_UrgentPointers">
                 <property name="text">
                  <string>Urgent pointers</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxUrgent">
+               <widget class="QSpinBox" name="spinBox_tcp_Urgent">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -482,7 +457,7 @@
             <item row="10" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_18">
               <item>
-               <widget class="QLabel" name="label_14">
+               <widget class="QLabel" name="label_tcp_Options">
                 <property name="text">
                  <string>Options</string>
                 </property>
@@ -491,14 +466,14 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_2">
                 <item>
-                 <widget class="QCheckBox" name="checkBox_NOPS">
+                 <widget class="QCheckBox" name="checkBox_tcp_Nops">
                   <property name="text">
                    <string>Add two NOPs (16bits)</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_Timestamp">
+                 <widget class="QCheckBox" name="checkBox_tcp_Timestamp">
                   <property name="text">
                    <string>Add Timestamp (80bits)</string>
                   </property>
@@ -511,16 +486,16 @@
             <item row="11" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_43">
               <item>
-               <widget class="QLabel" name="label_38">
+               <widget class="QLabel" name="label_tcp_Data">
                 <property name="text">
                  <string>Data</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPlainTextEdit" name="plainTextEdit_TCP_Data">
+               <widget class="QPlainTextEdit" name="plainTextEdit_tcp_Data">
                 <property name="placeholderText">
-                 <string>Only plain text, sorry</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -540,14 +515,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_39">
               <item>
-               <widget class="QLabel" name="label_34">
+               <widget class="QLabel" name="label_udp_SRCPort">
                 <property name="text">
                  <string>SRC Port</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxSrcPort_UDP">
+               <widget class="QSpinBox" name="spinBox_udp_SRCPort">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -579,14 +554,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_38">
               <item>
-               <widget class="QLabel" name="label_33">
+               <widget class="QLabel" name="label_udp_DSTPort">
                 <property name="text">
                  <string>DST Port</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxDstPort_UDP">
+               <widget class="QSpinBox" name="spinBox_udp_DSTPort">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -621,14 +596,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_40">
               <item>
-               <widget class="QLabel" name="label_35">
+               <widget class="QLabel" name="label_udp_length">
                 <property name="text">
                  <string>Length</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxLength_UDP">
+               <widget class="QSpinBox" name="spinBox_udp_Length">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -660,53 +635,28 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_41">
               <item>
-               <widget class="QLabel" name="label_36">
+               <widget class="QLabel" name="label_udp_checksum">
                 <property name="text">
                  <string>Checksum</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxChecksum_UDP">
-                <property name="focusPolicy">
-                 <enum>Qt::WheelFocus</enum>
-                </property>
-                <property name="contextMenuPolicy">
-                 <enum>Qt::DefaultContextMenu</enum>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;SRC port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="whatsThis">
-                 <string/>
-                </property>
-                <property name="buttonSymbols">
-                 <enum>QAbstractSpinBox::NoButtons</enum>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="maximum">
-                 <number>65535</number>
-                </property>
-                <property name="displayIntegerBase">
-                 <number>10</number>
-                </property>
-               </widget>
+               <widget class="QLineEdit" name="lineEdit_udp_Checksum"/>
               </item>
              </layout>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_44">
               <item>
-               <widget class="QLabel" name="label_39">
+               <widget class="QLabel" name="label_udp_Data">
                 <property name="text">
                  <string>Data</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPlainTextEdit" name="plainTextEdit_UDP_Data_2">
+               <widget class="QPlainTextEdit" name="plainTextEdit_udp_Data">
                 <property name="placeholderText">
                  <string>Only plain text, sorry</string>
                 </property>
@@ -737,14 +687,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item>
-                 <widget class="QLabel" name="label_15">
+                 <widget class="QLabel" name="label_ipv4_Version">
                   <property name="text">
                    <string>Version</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxIPversion">
+                 <widget class="QSpinBox" name="spinBox_ipv4_Version">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -782,14 +732,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
                 <item>
-                 <widget class="QLabel" name="label_16">
+                 <widget class="QLabel" name="label_ipv4_IHL">
                   <property name="text">
                    <string>IHL</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxIHL">
+                 <widget class="QSpinBox" name="spinBox_ipv4_IHL">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -827,14 +777,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_20">
                 <item>
-                 <widget class="QLabel" name="label_17">
+                 <widget class="QLabel" name="label_ipv4_DSCP">
                   <property name="text">
                    <string>DSCP</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxIDSCP">
+                 <widget class="QSpinBox" name="spinBox_ipv4_DSCP">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -869,14 +819,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_21">
                 <item>
-                 <widget class="QLabel" name="label_18">
+                 <widget class="QLabel" name="label_ipv4_ECN">
                   <property name="text">
                    <string>ECN</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxIECN">
+                 <widget class="QSpinBox" name="spinBox_ipv4_ECN">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -911,14 +861,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_22">
                 <item>
-                 <widget class="QLabel" name="label_19">
+                 <widget class="QLabel" name="label_ipv4_TotalLength">
                   <property name="text">
                    <string>Total length</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxTotalLenght">
+                 <widget class="QSpinBox" name="spinBox_ipv4_TotalLength">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -956,14 +906,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_25">
                 <item>
-                 <widget class="QLabel" name="label_21">
+                 <widget class="QLabel" name="label_ipv4_Identification">
                   <property name="text">
                    <string>Identification</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxIdentification">
+                 <widget class="QSpinBox" name="spinBox_ipv4_Identification">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -998,7 +948,7 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_24">
                 <item>
-                 <widget class="QLabel" name="label_20">
+                 <widget class="QLabel" name="label_ipv4_Flags">
                   <property name="text">
                    <string>Flags</string>
                   </property>
@@ -1007,7 +957,7 @@
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_23">
                   <item>
-                   <widget class="QCheckBox" name="checkBox_reserved">
+                   <widget class="QCheckBox" name="checkBox_ipv4_Res">
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Must be 0&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
@@ -1017,14 +967,14 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="checkBox_DF">
+                   <widget class="QCheckBox" name="checkBox_ipv4_DF">
                     <property name="text">
                      <string>DF</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="checkBox_MF">
+                   <widget class="QCheckBox" name="checkBox_ipv4_MF">
                     <property name="text">
                      <string>MF</string>
                     </property>
@@ -1037,14 +987,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_26">
                 <item>
-                 <widget class="QLabel" name="label_22">
+                 <widget class="QLabel" name="label_ipv4_FragmentOffset">
                   <property name="text">
                    <string>Fragment offset</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxFragOffset">
+                 <widget class="QSpinBox" name="spinBox_ipv4_FragmentOffset">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1083,14 +1033,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_27">
                 <item>
-                 <widget class="QLabel" name="label_23">
+                 <widget class="QLabel" name="label_ipv4_TTL">
                   <property name="text">
                    <string>TTL</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxTTL">
+                 <widget class="QSpinBox" name="spinBox_ipv4_TTL">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1125,14 +1075,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_28">
                 <item>
-                 <widget class="QLabel" name="label_24">
+                 <widget class="QLabel" name="label_ipv4_Protocol">
                   <property name="text">
                    <string>Protocol</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxProtocol">
+                 <widget class="PSIpProtoSpinBox" name="spinBox_ipv4_Protocol">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1167,56 +1117,28 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_29">
                 <item>
-                 <widget class="QLabel" name="label_25">
+                 <widget class="QLabel" name="label_ipv4_Checksum">
                   <property name="text">
                    <string>Checksum</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxChecksum_IP">
-                  <property name="focusPolicy">
-                   <enum>Qt::WheelFocus</enum>
-                  </property>
-                  <property name="contextMenuPolicy">
-                   <enum>Qt::DefaultContextMenu</enum>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DST port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string/>
-                  </property>
-                  <property name="buttonSymbols">
-                   <enum>QAbstractSpinBox::NoButtons</enum>
-                  </property>
-                  <property name="suffix">
-                   <string/>
-                  </property>
-                  <property name="maximum">
-                   <number>65535</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
-                  </property>
-                  <property name="displayIntegerBase">
-                   <number>10</number>
-                  </property>
-                 </widget>
+                 <widget class="QLineEdit" name="lineEdit_ipv4_Checksum"/>
                 </item>
                </layout>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_30">
                 <item>
-                 <widget class="QLabel" name="label_26">
+                 <widget class="QLabel" name="label_ipv4_SRCIP">
                   <property name="text">
                    <string>SRC IP</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineSRC_IP">
+                 <widget class="QLineEdit" name="lineEdit_ipv4_SRCIP">
                   <property name="inputMask">
                    <string>009.009.009.009;_</string>
                   </property>
@@ -1230,14 +1152,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_31">
                 <item>
-                 <widget class="QLabel" name="label_27">
+                 <widget class="QLabel" name="label_ipv4_DSTIP">
                   <property name="text">
                    <string>DST IP</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineDST_IP">
+                 <widget class="QLineEdit" name="lineEdit_ipv4_DSTIP">
                   <property name="inputMask">
                    <string>009.009.009.009;_</string>
                   </property>
@@ -1251,7 +1173,7 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_36">
                 <item>
-                 <widget class="QLabel" name="label_32">
+                 <widget class="QLabel" name="label_ipv4_Option">
                   <property name="text">
                    <string>Options</string>
                   </property>
@@ -1260,7 +1182,7 @@
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
-                   <widget class="QCheckBox" name="checkBox_OptionCopied">
+                   <widget class="QCheckBox" name="checkBox_ipv4_options_Copied">
                     <property name="text">
                      <string>Copied</string>
                     </property>
@@ -1269,14 +1191,14 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_32">
                     <item>
-                     <widget class="QLabel" name="label_28">
+                     <widget class="QLabel" name="label_ipv4_options_Class">
                       <property name="text">
                        <string>Class</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBoxI_OptionClass">
+                     <widget class="QSpinBox" name="spinBoxI_ipv4_options_Class">
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -1314,14 +1236,14 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_33">
                     <item>
-                     <widget class="QLabel" name="label_29">
+                     <widget class="QLabel" name="label_ipv4_options_Number">
                       <property name="text">
                        <string>Number</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBoxI_OptionNumber">
+                     <widget class="QSpinBox" name="spinBoxI_ipv4_options_Number">
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -1359,14 +1281,14 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_34">
                     <item>
-                     <widget class="QLabel" name="label_30">
+                     <widget class="QLabel" name="label_ipv4_options_Length">
                       <property name="text">
                        <string>Length</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBoxI_OptionLength">
+                     <widget class="QSpinBox" name="spinBoxI_ipv4_options_Length">
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -1404,18 +1326,36 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_35">
                     <item>
-                     <widget class="QLabel" name="label_31">
+                     <widget class="QLabel" name="label_ipv4_options_Data">
                       <property name="text">
                        <string>Data</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QPlainTextEdit" name="plainTextEdit_OptionData"/>
+                     <widget class="QPlainTextEdit" name="plainTextEdit_ipv4_options_Data"/>
                     </item>
                    </layout>
                   </item>
                  </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_72">
+                <item>
+                 <widget class="QLabel" name="label_ipv4_Data">
+                  <property name="text">
+                   <string>Data</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPlainTextEdit" name="plainTextEdit_ipv4_Data">
+                  <property name="placeholderText">
+                   <string>Only plain text, sorry</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>
@@ -1435,14 +1375,14 @@
             <item row="0" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_48">
               <item>
-               <widget class="QLabel" name="label_42">
+               <widget class="QLabel" name="label_icmp_Type">
                 <property name="text">
                  <string>Type</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxIType_ICMP">
+               <widget class="QSpinBox" name="spinBox_icmp_Type">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -1480,14 +1420,14 @@
             <item row="1" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_64">
               <item>
-               <widget class="QLabel" name="label_57">
+               <widget class="QLabel" name="label_icmp_Code">
                 <property name="text">
                  <string>Code</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxICode_ICMP">
+               <widget class="QSpinBox" name="spinBox_icmp_Code">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -1525,59 +1465,28 @@
             <item row="2" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_65">
               <item>
-               <widget class="QLabel" name="label_58">
+               <widget class="QLabel" name="label_icmp_Checksum">
                 <property name="text">
                  <string>ICMP Checksum</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBoxI_ICMPChecksum_ICMP">
-                <property name="focusPolicy">
-                 <enum>Qt::WheelFocus</enum>
-                </property>
-                <property name="contextMenuPolicy">
-                 <enum>Qt::DefaultContextMenu</enum>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;SRC port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="whatsThis">
-                 <string/>
-                </property>
-                <property name="buttonSymbols">
-                 <enum>QAbstractSpinBox::NoButtons</enum>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="minimum">
-                 <number>0</number>
-                </property>
-                <property name="maximum">
-                 <number>65535</number>
-                </property>
-                <property name="value">
-                 <number>0</number>
-                </property>
-                <property name="displayIntegerBase">
-                 <number>10</number>
-                </property>
-               </widget>
+               <widget class="QLineEdit" name="lineEdit_icmp_Checksum"/>
               </item>
              </layout>
             </item>
             <item row="3" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_66">
               <item>
-               <widget class="QLabel" name="label_59">
+               <widget class="QLabel" name="label_icmp_Data">
                 <property name="text">
                  <string>Data</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPlainTextEdit" name="plainTextEdit_ICMPData_ICMP">
+               <widget class="QPlainTextEdit" name="plainTextEdit_icmp_Data">
                 <property name="placeholderText">
                  <string>Only plain text, sorry</string>
                 </property>
@@ -1594,14 +1503,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_45">
                 <item>
-                 <widget class="QLabel" name="label_37">
+                 <widget class="QLabel" name="label_icmp_Version">
                   <property name="text">
                    <string>Version</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxIPversion_ICMP">
+                 <widget class="QSpinBox" name="spinBox_icmp_Version">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1639,14 +1548,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_46">
                 <item>
-                 <widget class="QLabel" name="label_40">
+                 <widget class="QLabel" name="label_icmp_HeaderLenght">
                   <property name="text">
                    <string>Header Length</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxHeaderLength_ICMP">
+                 <widget class="QSpinBox" name="spinBox_icmp_HeaderLenght">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1684,14 +1593,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_47">
                 <item>
-                 <widget class="QLabel" name="label_41">
+                 <widget class="QLabel" name="label_icmp_ToS">
                   <property name="text">
                    <string>Type of Service</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxTypeOfService_ICMP">
+                 <widget class="QSpinBox" name="spinBox_icmp_ToS">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1726,14 +1635,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_49">
                 <item>
-                 <widget class="QLabel" name="label_43">
+                 <widget class="QLabel" name="label_icmp_TotalLength">
                   <property name="text">
                    <string>Total length</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxTotalLenght_ICMP">
+                 <widget class="QSpinBox" name="spinBox_icmp_TotalLenght">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1771,14 +1680,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_50">
                 <item>
-                 <widget class="QLabel" name="label_44">
+                 <widget class="QLabel" name="label_icmp_Identifier_2">
                   <property name="text">
                    <string>Identifier</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxIdentifier_ICMP">
+                 <widget class="QSpinBox" name="spinBox_icmp_Identifier">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1813,7 +1722,7 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_51">
                 <item>
-                 <widget class="QLabel" name="label_45">
+                 <widget class="QLabel" name="label_icmp_Flags">
                   <property name="text">
                    <string>Flags</string>
                   </property>
@@ -1822,7 +1731,7 @@
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_52">
                   <item>
-                   <widget class="QCheckBox" name="checkBox_reserved_ICMP">
+                   <widget class="QCheckBox" name="checkBox_icmp_Res">
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Must be 0&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
@@ -1832,14 +1741,14 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="checkBox_DF_ICMP">
+                   <widget class="QCheckBox" name="checkBox_icmp_DF">
                     <property name="text">
                      <string>DF</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="checkBox_MF_ICMP">
+                   <widget class="QCheckBox" name="checkBox_icmp_MF">
                     <property name="text">
                      <string>MF</string>
                     </property>
@@ -1852,14 +1761,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_53">
                 <item>
-                 <widget class="QLabel" name="label_46">
+                 <widget class="QLabel" name="label_icmp_FragmentOffset">
                   <property name="text">
                    <string>Fragment offset</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxFragOffset_ICMP">
+                 <widget class="QSpinBox" name="spinBox_icmp_FragmentOffset">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1898,14 +1807,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_54">
                 <item>
-                 <widget class="QLabel" name="label_47">
+                 <widget class="QLabel" name="label_icmp_TTL">
                   <property name="text">
                    <string>TTL</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxTTL_ICP">
+                 <widget class="QSpinBox" name="spinBox_icmp_TTL">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1940,14 +1849,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_55">
                 <item>
-                 <widget class="QLabel" name="label_48">
+                 <widget class="QLabel" name="label_icmp_Protocol">
                   <property name="text">
                    <string>Protocol</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxProtocol_ICMP">
+                 <widget class="QSpinBox" name="spinBox_icmp_Protocol">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -1982,14 +1891,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_56">
                 <item>
-                 <widget class="QLabel" name="label_49">
+                 <widget class="QLabel" name="label_icmp_Checksum_2">
                   <property name="text">
                    <string>Checksum</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxChecksum_ICMP">
+                 <widget class="QSpinBox" name="spinBox_icmp_Checksum_2">
                   <property name="focusPolicy">
                    <enum>Qt::WheelFocus</enum>
                   </property>
@@ -2024,14 +1933,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_57">
                 <item>
-                 <widget class="QLabel" name="label_50">
+                 <widget class="QLabel" name="label_icmp_SRCIP">
                   <property name="text">
                    <string>SRC IP</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineSRC_IP_ICMP">
+                 <widget class="QLineEdit" name="lineEdit_icmp_SRCIP">
                   <property name="inputMask">
                    <string>009.009.009.009;_</string>
                   </property>
@@ -2045,14 +1954,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_58">
                 <item>
-                 <widget class="QLabel" name="label_51">
+                 <widget class="QLabel" name="label_icmp_DSTIP">
                   <property name="text">
                    <string>DST IP</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineDST_IP_ICMP">
+                 <widget class="QLineEdit" name="lineEdit_icmp_SRCIP_2">
                   <property name="inputMask">
                    <string>009.009.009.009;_</string>
                   </property>
@@ -2066,7 +1975,7 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_59">
                 <item>
-                 <widget class="QLabel" name="label_52">
+                 <widget class="QLabel" name="label_icmp_Options">
                   <property name="text">
                    <string>Options</string>
                   </property>
@@ -2075,7 +1984,7 @@
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_11">
                   <item>
-                   <widget class="QCheckBox" name="checkBox_OptionCopied_ICMP">
+                   <widget class="QCheckBox" name="checkBox_icmp_options_Copied">
                     <property name="text">
                      <string>Copied</string>
                     </property>
@@ -2084,14 +1993,14 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_60">
                     <item>
-                     <widget class="QLabel" name="label_53">
+                     <widget class="QLabel" name="label_icmp_options_Class">
                       <property name="text">
                        <string>Class</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBoxI_OptionClass_ICMP">
+                     <widget class="QSpinBox" name="spinBox_icmp_options_Class">
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -2129,14 +2038,14 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_61">
                     <item>
-                     <widget class="QLabel" name="label_54">
+                     <widget class="QLabel" name="label_icmp_options_Number">
                       <property name="text">
                        <string>Number</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBoxI_OptionNumber_ICMP">
+                     <widget class="QSpinBox" name="spinBox_icmp_options_Number">
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -2174,14 +2083,14 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_62">
                     <item>
-                     <widget class="QLabel" name="label_55">
+                     <widget class="QLabel" name="label_icmp_options_Lenght">
                       <property name="text">
                        <string>Length</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBoxI_OptionLength_ICMP">
+                     <widget class="QSpinBox" name="spinBox_icmp_options_Length">
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -2219,14 +2128,14 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_63">
                     <item>
-                     <widget class="QLabel" name="label_56">
+                     <widget class="QLabel" name="label_icmp_options_Data">
                       <property name="text">
                        <string>Data</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QPlainTextEdit" name="plainTextEdit_OptionData_ICMP">
+                     <widget class="QPlainTextEdit" name="plainTextEdit_icmp_options_Data">
                       <property name="placeholderText">
                        <string>Only plain text, sorry</string>
                       </property>
@@ -2235,6 +2144,24 @@
                    </layout>
                   </item>
                  </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_73">
+                <item>
+                 <widget class="QLabel" name="label_icmp_Data_2">
+                  <property name="text">
+                   <string>Data</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPlainTextEdit" name="plainTextEdit_icmp_Data_2">
+                  <property name="placeholderText">
+                   <string>Only plain text, sorry</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>
@@ -2261,14 +2188,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
-               <widget class="QLabel" name="label_60">
+               <widget class="QLabel" name="label_mac_Preamble">
                 <property name="text">
                  <string>Preamble</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_Preamble">
+               <widget class="QLineEdit" name="lineEdit_mac_Preamble">
                 <property name="text">
                  <string>10101010101010101010101010101010101010101010101010101010</string>
                 </property>
@@ -2285,14 +2212,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
-               <widget class="QLabel" name="label_61">
+               <widget class="QLabel" name="label_mac_SFD">
                 <property name="text">
                  <string>SFD</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_SFD">
+               <widget class="QLineEdit" name="lineEdit_mac_SFD">
                 <property name="text">
                  <string>10101011</string>
                 </property>
@@ -2309,14 +2236,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_67">
               <item>
-               <widget class="QLabel" name="label_62">
+               <widget class="QLabel" name="label_mac_SRCMAC">
                 <property name="text">
                  <string>SRC MAC</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineSRC_MAC">
+               <widget class="QLineEdit" name="lineEdit_mac_SRCMAC">
                 <property name="inputMask">
                  <string>HH:HH:HH:HH:HH:HH;_</string>
                 </property>
@@ -2330,14 +2257,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_68">
               <item>
-               <widget class="QLabel" name="label_63">
+               <widget class="QLabel" name="label_mac_DSTMAC">
                 <property name="text">
                  <string>DST MAC</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineDST_MAC">
+               <widget class="QLineEdit" name="lineEdit_mac_DSTMAC">
                 <property name="inputMask">
                  <string>HH:HH:HH:HH:HH:HH;_</string>
                 </property>
@@ -2351,14 +2278,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_37">
               <item>
-               <widget class="QLabel" name="label_64">
+               <widget class="QLabel" name="label_mac_Lenght">
                 <property name="text">
                  <string>Lenght</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBox_Lenght">
+               <widget class="QSpinBox" name="spinBox_mac_Lenght">
                 <property name="focusPolicy">
                  <enum>Qt::WheelFocus</enum>
                 </property>
@@ -2393,28 +2320,28 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_42">
               <item>
-               <widget class="QLabel" name="label_65">
+               <widget class="QLabel" name="label_mac_Data">
                 <property name="text">
                  <string>Data</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPlainTextEdit" name="plainTextEdit"/>
+               <widget class="QPlainTextEdit" name="plainTextEdit_mac_Data"/>
               </item>
              </layout>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_69">
               <item>
-               <widget class="QLabel" name="label_66">
+               <widget class="QLabel" name="label_mac_Checksum">
                 <property name="text">
-                 <string>CRC</string>
+                 <string>Checksum</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit"/>
+               <widget class="QLineEdit" name="lineEdit_mac_Checksum"/>
               </item>
              </layout>
             </item>
@@ -2498,7 +2425,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="label_icmp_DF">
           <property name="text">
            <string>times every </string>
           </property>
@@ -2510,35 +2437,445 @@
     </item>
    </layout>
   </widget>
-  <action name="action1">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>1</string>
-   </property>
-   <property name="toolTip">
-    <string>2</string>
-   </property>
-  </action>
+  <widget class="QStatusBar" name="statusBar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PSIpProtoSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">psIpProtoSpinBox</header>
+   <slots>
+    <slot>setProto(int)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
    <sender>tab_L4_Widget</sender>
    <signal>currentChanged(int)</signal>
-   <receiver>spinBoxProtocol</receiver>
-   <slot>stepUp()</slot>
+   <receiver>spinBox_ipv4_Protocol</receiver>
+   <slot>setProto(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>257</x>
-     <y>372</y>
+     <x>415</x>
+     <y>29</y>
     </hint>
     <hint type="destinationlabel">
-     <x>987</x>
-     <y>100</y>
+     <x>948</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_tcp_SRCPort</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpSourcePortChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>444</x>
+     <y>68</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>10</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_tcp_DSTPort</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpDestinationPortChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>420</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>36</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_tcp_SEQ</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpSEQNumChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>339</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_tcp_ACK</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpACKChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>365</x>
+     <y>179</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_tcp_DataOffset</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpDataOffsetChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>388</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>118</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_Res1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpRes1Changed(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>149</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_Res2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpRes2Changed(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>196</x>
+     <y>245</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>179</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_Res3</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpRes3Changed(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>263</x>
+     <y>241</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_Res4</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpRes4Changed(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>320</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>233</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_CWR</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpCWRChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>396</x>
+     <y>243</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_ECE</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpECEChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>455</x>
+     <y>243</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_URG</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpURGChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>189</x>
+     <y>270</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_ACK</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpACKChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>238</x>
+     <y>275</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>509</x>
+     <y>339</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_PSH</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpPSHChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>303</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>369</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_RST</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpRSTChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_SYN</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpSYNChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>418</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>422</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_FIN</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpFINChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>454</x>
+     <y>278</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>448</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_tcp_WIN</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpWINChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>342</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>475</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_tcp_Checksum</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpChecksumChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>261</x>
+     <y>347</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>505</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_tcp_Urgent</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpUrgentChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>345</x>
+     <y>384</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>514</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_Nops</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpOptionsAddNopsChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>339</x>
+     <y>417</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>559</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_tcp_Timestamp</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpOptionsAddTimestampChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>360</x>
+     <y>427</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>588</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>plainTextEdit_tcp_Data</sender>
+   <signal>textChanged()</signal>
+   <receiver>PacketSender</receiver>
+   <slot>tcpDataChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>209</x>
+     <y>632</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>615</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sendButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PacketSender</receiver>
+   <slot>sendBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1305</x>
+     <y>797</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1234</x>
+     <y>818</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>tcpSourcePortChanged(int)</slot>
+  <slot>tcpDestinationPortChanged(int)</slot>
+  <slot>tcpSEQNumChanged(int)</slot>
+  <slot>tcpACKChanged(int)</slot>
+  <slot>tcpDataOffsetChanged(int)</slot>
+  <slot>tcpRes1Changed(bool)</slot>
+  <slot>tcpRes2Changed(bool)</slot>
+  <slot>tcpRes3Changed(bool)</slot>
+  <slot>tcpRes4Changed(bool)</slot>
+  <slot>tcpCWRChanged(bool)</slot>
+  <slot>tcpECEChanged(bool)</slot>
+  <slot>tcpURGChanged(bool)</slot>
+  <slot>tcpACKChanged(bool)</slot>
+  <slot>tcpPSHChanged(bool)</slot>
+  <slot>tcpRSTChanged(bool)</slot>
+  <slot>tcpSYNChanged(bool)</slot>
+  <slot>tcpFINChanged(bool)</slot>
+  <slot>tcpWINChanged(int)</slot>
+  <slot>tcpChecksumChanged(QString)</slot>
+  <slot>tcpUrgentChanged(int)</slot>
+  <slot>tcpOptionsAddNopsChanged(bool)</slot>
+  <slot>tcpOptionsAddTimestampChanged(bool)</slot>
+  <slot>tcpDataChanged()</slot>
+  <slot>sendBtnClicked()</slot>
+ </slots>
 </ui>
