@@ -3575,6 +3575,118 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>lineEdit_mac_Preamble</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>macPreambleChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1260</x>
+     <y>65</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1104</x>
+     <y>360</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_mac_SFD</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>macSFDChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1229</x>
+     <y>90</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1104</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_mac_SRCMAC</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>macSRCMaсChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1287</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1103</x>
+     <y>421</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_mac_DSTMAC</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>macDSTMacChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1237</x>
+     <y>168</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1101</x>
+     <y>451</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_mac_Lenght</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>macLenghtChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1295</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1102</x>
+     <y>479</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>plainTextEdit_mac_Data</sender>
+   <signal>textChanged()</signal>
+   <receiver>PacketSender</receiver>
+   <slot>macDataChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1313</x>
+     <y>471</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1102</x>
+     <y>507</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_mac_Checksum</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>macChecksumChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1222</x>
+     <y>734</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1102</x>
+     <y>538</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>tcpSourcePortChanged(int)</slot>
@@ -3631,5 +3743,12 @@
   <slot>icmpCodeChanged(int)</slot>
   <slot>icmpChecksumChanged(QString)</slot>
   <slot>icmpDataChanged()</slot>
+  <slot>macPreambleChanged(QString)</slot>
+  <slot>macSFDChanged(QString)</slot>
+  <slot>macSRCMaсChanged(QString)</slot>
+  <slot>macDSTMacChanged(QString)</slot>
+  <slot>macLenghtChanged(int)</slot>
+  <slot>macDataChanged()</slot>
+  <slot>macChecksumChanged(QString)</slot>
  </slots>
 </ui>
