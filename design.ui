@@ -3703,6 +3703,294 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>spinBox_icmp_HeaderLenght</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_ipv4_IHL</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>681</x>
+     <y>352</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>678</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_icmp_TotalLenght</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_ipv4_TotalLength</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>678</x>
+     <y>497</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>678</x>
+     <y>443</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_icmp_Identifier</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_ipv4_Identification</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>678</x>
+     <y>570</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>678</x>
+     <y>531</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_icmp_Res</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_ipv4_Res</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>608</x>
+     <y>643</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>608</x>
+     <y>620</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_icmp_DF</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_ipv4_DF</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>654</x>
+     <y>643</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>620</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_icmp_MF</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_ipv4_MF</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>698</x>
+     <y>643</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>698</x>
+     <y>620</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_icmp_FragmentOffset</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_ipv4_FragmentOffset</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>685</x>
+     <y>715</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>685</x>
+     <y>708</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_icmp_TTL</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_ipv4_TTL</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>987</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>987</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_icmp_Protocol</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_ipv4_Protocol</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>987</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>987</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_icmp_Checksum</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>lineEdit_ipv4_Checksum</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>860</x>
+     <y>134</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>937</x>
+     <y>135</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_ipv4_SRCIP</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>lineEdit_ipv4_SRCIP</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>926</x>
+     <y>168</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>926</x>
+     <y>168</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_icmp_DSTIP</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>lineEdit_ipv4_DSTIP</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>926</x>
+     <y>398</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>926</x>
+     <y>201</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_icmp_options_Copied</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox_ipv4_options_Copied</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>929</x>
+     <y>430</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>929</x>
+     <y>233</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_icmp_options_Class</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBoxI_ipv4_options_Class</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>994</x>
+     <y>459</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>994</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_icmp_options_Number</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBoxI_ipv4_options_Number</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>994</x>
+     <y>495</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>994</x>
+     <y>298</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_icmp_options_Length</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBoxI_ipv4_options_Length</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>994</x>
+     <y>531</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>994</x>
+     <y>334</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>plainTextEdit_icmp_options_Data</sender>
+   <signal>textChanged()</signal>
+   <receiver>PacketSender</receiver>
+   <slot>ipv4OptionsDataChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>944</x>
+     <y>599</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>719</x>
+     <y>427</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>plainTextEdit_icmp_Data_2</sender>
+   <signal>textChanged()</signal>
+   <receiver>PacketSender</receiver>
+   <slot>ipv4DataChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>920</x>
+     <y>702</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>719</x>
+     <y>427</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>tcpSourcePortChanged(int)</slot>
