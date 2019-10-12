@@ -3687,6 +3687,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>spinBox_icmp_Version</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_ipv4_Version</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>678</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>678</x>
+     <y>90</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>tcpSourcePortChanged(int)</slot>
