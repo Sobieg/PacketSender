@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1512</width>
-    <height>862</height>
+    <width>1440</width>
+    <height>855</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2220,48 +2220,6 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_37">
-              <item>
-               <widget class="QLabel" name="label_mac_Lenght">
-                <property name="text">
-                 <string>Lenght</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="spinBox_mac_Length">
-                <property name="focusPolicy">
-                 <enum>Qt::WheelFocus</enum>
-                </property>
-                <property name="contextMenuPolicy">
-                 <enum>Qt::DefaultContextMenu</enum>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DST port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="whatsThis">
-                 <string/>
-                </property>
-                <property name="buttonSymbols">
-                 <enum>QAbstractSpinBox::NoButtons</enum>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="maximum">
-                 <number>65535</number>
-                </property>
-                <property name="value">
-                 <number>0</number>
-                </property>
-                <property name="displayIntegerBase">
-                 <number>10</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
              <layout class="QHBoxLayout" name="horizontalLayout_42">
               <item>
                <widget class="QLabel" name="label_mac_Data">
@@ -3202,8 +3160,8 @@
    <slot>macSRCMacChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1287</x>
-     <y>132</y>
+     <x>1473</x>
+     <y>72</y>
     </hint>
     <hint type="destinationlabel">
      <x>1103</x>
@@ -3218,8 +3176,8 @@
    <slot>macDSTMacChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1237</x>
-     <y>168</y>
+     <x>1473</x>
+     <y>105</y>
     </hint>
     <hint type="destinationlabel">
      <x>1101</x>
