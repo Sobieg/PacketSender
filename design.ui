@@ -673,7 +673,7 @@
       <item>
        <widget class="QTabWidget" name="tab_L3_Widget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="ipv4">
          <attribute name="title">
@@ -2178,54 +2178,6 @@
           <item row="0" column="0">
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <item>
-               <widget class="QLabel" name="label_mac_Preamble">
-                <property name="text">
-                 <string>Preamble</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_mac_Preamble">
-                <property name="text">
-                 <string>10101010101010101010101010101010101010101010101010101010</string>
-                </property>
-                <property name="maxLength">
-                 <number>56</number>
-                </property>
-                <property name="cursorPosition">
-                 <number>0</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
-              <item>
-               <widget class="QLabel" name="label_mac_SFD">
-                <property name="text">
-                 <string>SFD</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_mac_SFD">
-                <property name="text">
-                 <string>10101011</string>
-                </property>
-                <property name="maxLength">
-                 <number>8</number>
-                </property>
-                <property name="cursorPosition">
-                 <number>0</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
              <layout class="QHBoxLayout" name="horizontalLayout_67">
               <item>
                <widget class="QLabel" name="label_mac_SRCMAC">
@@ -3240,38 +3192,6 @@
     <hint type="destinationlabel">
      <x>994</x>
      <y>534</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lineEdit_mac_Preamble</sender>
-   <signal>returnPressed()</signal>
-   <receiver>PacketSender</receiver>
-   <slot>macPreambleChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1260</x>
-     <y>65</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1104</x>
-     <y>360</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lineEdit_mac_SFD</sender>
-   <signal>returnPressed()</signal>
-   <receiver>PacketSender</receiver>
-   <slot>macSFDChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1229</x>
-     <y>90</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1104</x>
-     <y>392</y>
     </hint>
    </hints>
   </connection>
