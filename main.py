@@ -4,9 +4,10 @@ import socket
 import time
 import psutil
 import random
-from scapy.layers.l2 import *
+from scapy.layers import inet, l2
 
 from PyQt5 import QtWidgets, QtCore, QtGui
+
 import design
 
 "Naming objects: " \
@@ -17,7 +18,7 @@ import design
 # TODO: 2) merge ipv4 fields in ipv4 and icmp tabs DONE
 # TODO: 3) MAC from ip DONE
 # TODO: 4) generate packet by pressing send button
-# TODO: 5) generate new checksum in every method _Changed
+# TODO: 5) generate new checksum when return pressed in every method _Changed
 
 
 class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
@@ -25,7 +26,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         super().__init__()
         self.setupUi(self)
 
-        # Load interfecases
+        # Load interfaces
         self.statusBar.showMessage("Loading interfaces ...")
         self.refreshNetworkInterfaces()
         self.statusBar.showMessage("Loading interfaces ... done")
@@ -45,14 +46,14 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         for NICname in addrs.keys():
             self.comboInterfacesBox.addItem(NICname)
 
-    def getTimesSend(self):
-        return self.timesSpinBox.value()
+    def sendPacket(self, times, delay):
+        packet = l2.Ether(src=self.lineEdit_mac_SRCMAC.text(),
+                          dst=self.lineEdit_mac_DSTMAC.text())
+        packets = []
 
-    def getDelaySend(self):
-        return self.delaySpinBox.value()
-
-    def sendPacket(self):
-        print("Sent")
+        for t in range(times):
+            packets.append(l2.sendp(packet, return_packets=True))
+        return packets
 
     def showBitChange(self, nState, bitname="", proto=""):
         if nState:
@@ -62,8 +63,9 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
     def getMacAddress(self, ip="0.0.0.0"):
         try:
-            mac = getmacbyip(ip)
+            mac = l2.getmacbyip(ip)
             if mac == "ff:ff:ff:ff:ff:ff" or mac == "00:00:00:00:00:00":
+                # tested only on Mac OS, and not working pretty well with virtual interfaces, like virtualbox interfaces
                 return psutil.net_if_addrs()[self.comboInterfacesBox.currentText()][1].address
             else:
                 return mac
@@ -72,12 +74,17 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
     # Slots:
     def sendBtnClicked(self):
-        times = self.getTimesSend()
-        delay = self.getDelaySend()
+        times = self.timesSpinBox.value()
+        delay = self.delaySpinBox.value()
         print("pushed button send with times = ", times, " delay = ", delay)
-        for i in range(times):
-            self.sendPacket()
-            time.sleep(delay / 1000)
+        packets = self.sendPacket(times, delay)
+        time.sleep(delay / 1000)
+
+
+        #DEBUG:
+        for packet in packets:
+            packet.display()
+
 
     def tcpSourcePortChanged(self):
         nValue = self.spinBox_tcp_SRCPort.text()
@@ -236,7 +243,14 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         # Fixme: need to change icmp SCR ip after changing ipv4 SRC ip and other way. If set slot/signal done
         #       other fields, caret will go to the end of line every time when user type one char
         # TODO: regexp value and pass only correct done with try/catch
-        nValue = self.lineEdit_ipv4_SRCIP.text()
+
+        ind = self.tab_L3_Widget.currentIndex()
+        if ind == 0:
+            nValue = self.lineEdit_ipv4_SRCIP.text()
+            self.lineEdit_icmp_SRCIP.setText(nValue)
+        else:
+            nValue = self.lineEdit_icmp_SRCIP.text()
+            self.lineEdit_ipv4_SRCIP.setText(nValue)
         self.lineEdit_mac_SRCMAC.setText(self.getMacAddress(nValue))
 
         self.statusBar.showMessage("IPv4 SRC IP length changed to " + str(nValue), 1000)
@@ -244,7 +258,13 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
     def ipv4DSTIPChanged(self):
         # Fixme: need to change icmp DST ip after changing ipv4 DST ip and other way. If set slot/signal done
         #       other fields, caret will go to the end of line every time when user type one char
-        nValue = self.lineEdit_ipv4_DSTIP.text()
+        ind = self.tab_L3_Widget.currentIndex()
+        if ind == 0:
+            nValue = self.lineEdit_ipv4_DSTIP.text()
+            self.lineEdit_icmp_DSTIP.setText(nValue)
+        else:
+            nValue = self.lineEdit_icmp_DSTIP.text()
+            self.lineEdit_ipv4_DSTIP.setText(nValue)
         self.lineEdit_mac_DSTMAC.setText(self.getMacAddress(nValue))
         self.statusBar.showMessage("IPv4 DST IP length changed to " + str(nValue), 1000)
 
@@ -319,7 +339,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
 # To get plain text from plain text:
 # text = self.plainTextEdit_tcp_Data.toPlainText()
