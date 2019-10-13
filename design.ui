@@ -1490,24 +1490,6 @@
               </item>
              </layout>
             </item>
-            <item row="3" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_66">
-              <item>
-               <widget class="QLabel" name="label_icmp_Data">
-                <property name="text">
-                 <string>Data</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPlainTextEdit" name="plainTextEdit_icmp_Data">
-                <property name="placeholderText">
-                 <string>Only plain text, sorry</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
            </layout>
           </item>
           <item row="1" column="0">
@@ -2189,7 +2171,7 @@
               <item>
                <widget class="QLineEdit" name="lineEdit_mac_SRCMAC">
                 <property name="inputMask">
-                 <string>HH:HH:HH:HH:HH:HH;0</string>
+                 <string>HH:HH:HH:HH:HH:HH;_</string>
                 </property>
                 <property name="clearButtonEnabled">
                  <bool>false</bool>
@@ -2210,7 +2192,7 @@
               <item>
                <widget class="QLineEdit" name="lineEdit_mac_DSTMAC">
                 <property name="inputMask">
-                 <string>HH:HH:HH:HH:HH:HH;0</string>
+                 <string>HH:HH:HH:HH:HH:HH;_</string>
                 </property>
                 <property name="clearButtonEnabled">
                  <bool>false</bool>
@@ -2878,22 +2860,6 @@
     <hint type="destinationlabel">
      <x>1106</x>
      <y>300</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>plainTextEdit_icmp_Data</sender>
-   <signal>textChanged()</signal>
-   <receiver>PacketSender</receiver>
-   <slot>icmpDataChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>899</x>
-     <y>185</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1106</x>
-     <y>331</y>
     </hint>
    </hints>
   </connection>
