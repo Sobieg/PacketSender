@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
+    <width>1512</width>
     <height>855</height>
    </rect>
   </property>
@@ -2121,24 +2121,6 @@
                 </item>
                </layout>
               </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_73">
-                <item>
-                 <widget class="QLabel" name="label_icmp_Data_2">
-                  <property name="text">
-                   <string>Data</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPlainTextEdit" name="plainTextEdit_icmp_Data_2">
-                  <property name="placeholderText">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
              </layout>
             </item>
            </layout>
@@ -3448,22 +3430,6 @@
     <hint type="sourcelabel">
      <x>944</x>
      <y>599</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>719</x>
-     <y>427</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>plainTextEdit_icmp_Data_2</sender>
-   <signal>textChanged()</signal>
-   <receiver>PacketSender</receiver>
-   <slot>ipv4DataChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>920</x>
-     <y>702</y>
     </hint>
     <hint type="destinationlabel">
      <x>719</x>
