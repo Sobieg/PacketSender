@@ -19,6 +19,7 @@ import design
 # TODO: 3) MAC from ip DONE
 # TODO: 4) generate packet by pressing send button
 # TODO: 5) generate new checksum when return pressed in every method _Changed
+# TODO: 6) Check values from forms and if it is not changed, use default values
 
 
 class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
@@ -47,13 +48,103 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
             self.comboInterfacesBox.addItem(NICname)
 
     def sendPacket(self, times, delay):
-        packet = l2.Ether(src=self.lineEdit_mac_SRCMAC.text(),
-                          dst=self.lineEdit_mac_DSTMAC.text())
-        packets = []
+
+        srcmac = self.lineEdit_mac_SRCMAC.text()
+        dstmac = self.lineEdit_mac_DSTMAC.text()
+
+        if self.tab_L3_Widget.currentIndex() == 1:  # ICMP
+            frame = l2.Ether(
+            ) / inet.IP(
+                version=self.spinBox_icmp_Version.value(),
+                ihl=self.spinBox_icmp_HeaderLenght.value(),
+                tos=self.spinBox_icmp_ToS.value(),
+                len=self.spinBox_icmp_TotalLenght.value(),
+                id=self.spinBox_icmp_Identifier.value(),
+                flags=(int(self.checkBox_icmp_MF.isChecked()) +
+                       int(self.checkBox_icmp_DF.isChecked() << 1) +
+                       int(self.checkBox_icmp_Res.isChecked() << 2)),
+                frag=self.spinBox_icmp_FragmentOffset.value(),
+                ttl=self.spinBox_icmp_TTL.value(),
+                proto=self.spinBox_icmp_Protocol.value(),
+
+                src=self.lineEdit_icmp_SRCIP.text() if self.lineEdit_icmp_SRCIP.text() != "..." else "127.0.0.1",
+                dst=self.lineEdit_icmp_DSTIP.text() if self.lineEdit_icmp_DSTIP.text() != "..." else "127.0.0.1",
+                # options=[
+                #     #self.checkBox_icmp_options_Copied.isChecked(),
+                #     # self.spinBox_icmp_options_Class.value(),
+                #     # self.spinBox_icmp_options_Number.value(),
+                #     # self.spinBox_icmp_options_Length.value(),
+                #     # # self.plainTextEdit_icmp_options_Data.toPlainText()
+                # ]
+            ) \
+                    / inet.ICMP(
+                type=self.spinBox_icmp_Type.value(),
+                code=self.spinBox_icmp_Code.value()
+            )
+        elif self.tab_L4_Widget.currentIndex() == 0:  # TCP
+            frame = l2.Ether(
+            ) / inet.IP(
+                version=self.spinBox_ipv4_Version.value(),
+                ihl=self.spinBox_ipv4_IHL.value(),
+                tos=(self.spinBox_ipv4_DSCP.value() << 2) & self.spinBox_ipv4_ECN.value(),
+                len=self.spinBox_ipv4_TotalLength.value(),
+                id=self.spinBox_ipv4_Identification.value(),
+                flags=(int(self.checkBox_ipv4_MF.isChecked()) +
+                       int(self.checkBox_ipv4_DF.isChecked() << 1) +
+                       int(self.checkBox_ipv4_Res.isChecked() << 2)),
+                frag=self.spinBox_ipv4_FragmentOffset.value(),
+                ttl=self.spinBox_ipv4_TTL.value(),
+                proto=self.spinBox_ipv4_Protocol.value(),
+
+                src=self.lineEdit_ipv4_SRCIP.text() if self.lineEdit_icmp_SRCIP.text() != "..." else "127.0.0.1",
+                dst=self.lineEdit_ipv4_DSTIP.text() if self.lineEdit_icmp_DSTIP.text() != "..." else "127.0.0.1",
+                options=[
+                    self.checkBox_icmp_options_Copied.isChecked(),
+                    self.spinBox_icmp_options_Class.value(),
+                    self.spinBox_icmp_options_Number.value(),
+                    self.spinBox_icmp_options_Length.value(),
+                    # self.plainTextEdit_icmp_options_Data.toPlainText()
+                ]
+            ) \
+                    / inet.TCP(
+                sport=self.spinBox_tcp_SRCPort.value(),
+                dport=self.spinBox_tcp_DSTPort.value(),
+                seq=self.spinBox_tcp_SEQ.value(),
+                ack=self.spinBox_tcp_ACK.value(),
+                dataofs=self.spinBox_tcp_DataOffset.value(),
+                reserved=(int(self.checkBox_tcp_Res1.isChecked()) +
+                          int(self.checkBox_tcp_Res2.isChecked() << 1) +
+                          int(self.checkBox_tcp_Res3.isChecked() << 2)),
+                flags=(int(self.checkBox_tcp_Res4.isChecked()) +
+                      int(self.checkBox_tcp_CWR.isChecked() << 1) +
+                      int(self.checkBox_tcp_URG.isChecked() << 2) +
+                      int(self.checkBox_tcp_ACK.isChecked() << 3) +
+                      int(self.checkBox_tcp_PSH.isChecked() << 4) +
+                      int(self.checkBox_tcp_RST.isChecked() << 5) +
+                      int(self.checkBox_tcp_SYN.isChecked() << 6) +
+                      int(self.checkBox_tcp_FIN.isChecked() << 7)),
+                window=self.spinBox_tcp_WIN.value(),
+                chksum=self.lineEdit_tcp_Checksum.text() if self.lineEdit_tcp_Checksum.text() != "" else None,
+                urgptr=self.spinBox_tcp_Urgent.value(),
+                # options=(str(0x01) * 2 +  # WTF THIS CODE IS
+                #          str(0x08) +
+                #          str(0x0a) +
+                #          str(hex(int(time.time()))) if (self.checkBox_tcp_Nops.isChecked() and
+                #                                        self.checkBox_tcp_Timestamp.isChecked()) else
+                #          str(0x01) * 2 if self.checkBox_tcp_Nops.isChecked() else
+                #          str(hex(int(time.time()))))
+            )
+        else:  # UDP
+            pass
+
+        if srcmac != ":::::":
+            frame.src = srcmac
+        if dstmac != ":::::":
+            frame.dst = dstmac
 
         for t in range(times):
-            packets.append(l2.sendp(packet, return_packets=True))
-        return packets
+            l2.sendp(frame, return_packets=True, verbose=None)
+            time.sleep(delay / 1000)
 
     def showBitChange(self, nState, bitname="", proto=""):
         if nState:
@@ -77,14 +168,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         times = self.timesSpinBox.value()
         delay = self.delaySpinBox.value()
         print("pushed button send with times = ", times, " delay = ", delay)
-        packets = self.sendPacket(times, delay)
-        time.sleep(delay / 1000)
-
-
-        #DEBUG:
-        for packet in packets:
-            packet.display()
-
+        self.sendPacket(times, delay)
 
     def tcpSourcePortChanged(self):
         nValue = self.spinBox_tcp_SRCPort.text()
