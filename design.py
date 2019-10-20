@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_PacketSender(object):
     def setupUi(self, PacketSender):
         PacketSender.setObjectName("PacketSender")
-        PacketSender.resize(1512, 855)
+        PacketSender.resize(1440, 855)
         PacketSender.setAutoFillBackground(False)
         self.centralwidget = QtWidgets.QWidget(PacketSender)
         self.centralwidget.setObjectName("centralwidget")
@@ -510,7 +510,7 @@ class Ui_PacketSender(object):
         self.spinBox_ipv4_IHL.setSuffix("")
         self.spinBox_ipv4_IHL.setMinimum(0)
         self.spinBox_ipv4_IHL.setMaximum(15)
-        self.spinBox_ipv4_IHL.setProperty("value", 5)
+        self.spinBox_ipv4_IHL.setProperty("value", 0)
         self.spinBox_ipv4_IHL.setDisplayIntegerBase(10)
         self.spinBox_ipv4_IHL.setObjectName("spinBox_ipv4_IHL")
         self.horizontalLayout_19.addWidget(self.spinBox_ipv4_IHL)
@@ -561,7 +561,7 @@ class Ui_PacketSender(object):
         self.spinBox_ipv4_TotalLength.setSuffix("")
         self.spinBox_ipv4_TotalLength.setMinimum(0)
         self.spinBox_ipv4_TotalLength.setMaximum(65535)
-        self.spinBox_ipv4_TotalLength.setProperty("value", 20)
+        self.spinBox_ipv4_TotalLength.setProperty("value", 0)
         self.spinBox_ipv4_TotalLength.setDisplayIntegerBase(10)
         self.spinBox_ipv4_TotalLength.setObjectName("spinBox_ipv4_TotalLength")
         self.horizontalLayout_22.addWidget(self.spinBox_ipv4_TotalLength)
@@ -1040,7 +1040,7 @@ class Ui_PacketSender(object):
 
         self.retranslateUi(PacketSender)
         self.tab_L4_Widget.setCurrentIndex(0)
-        self.tab_L3_Widget.setCurrentIndex(1)
+        self.tab_L3_Widget.setCurrentIndex(0)
         self.tab_L2_Widget.setCurrentIndex(0)
         self.tab_L4_Widget.currentChanged['int'].connect(self.spinBox_ipv4_Protocol.setProto)
         self.checkBox_tcp_Res1.clicked['bool'].connect(PacketSender.tcpRes1Changed)

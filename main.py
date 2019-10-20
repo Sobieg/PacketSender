@@ -10,6 +10,9 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 
 import design
 
+DEBUG = True #WTF I WANT IFDEF
+
+
 "Naming objects: " \
 "class_tabname_Name"
 
@@ -20,6 +23,8 @@ import design
 # TODO: 4) generate packet by pressing send button
 # TODO: 5) generate new checksum when return pressed in every method _Changed
 # TODO: 6) Check values from forms and if it is not changed, use default values
+# TODO: 7) Generate packet in separate method and get checksum from it
+# TODO: 8) Checksums in the end of generating packet, before sending.
 
 
 class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
@@ -49,101 +54,157 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
     def sendPacket(self, times, delay):
 
-        srcmac = self.lineEdit_mac_SRCMAC.text()
-        dstmac = self.lineEdit_mac_DSTMAC.text()
+        frame = l2.Ether()
+        ipPacket = inet.IP()
 
-        if self.tab_L3_Widget.currentIndex() == 1:  # ICMP
-            frame = l2.Ether(
-            ) / inet.IP(
-                version=self.spinBox_icmp_Version.value(),
-                ihl=self.spinBox_icmp_HeaderLenght.value(),
-                tos=self.spinBox_icmp_ToS.value(),
-                len=self.spinBox_icmp_TotalLenght.value(),
-                id=self.spinBox_icmp_Identifier.value(),
-                flags=(int(self.checkBox_icmp_MF.isChecked()) +
-                       int(self.checkBox_icmp_DF.isChecked() << 1) +
-                       int(self.checkBox_icmp_Res.isChecked() << 2)),
-                frag=self.spinBox_icmp_FragmentOffset.value(),
-                ttl=self.spinBox_icmp_TTL.value(),
-                proto=self.spinBox_icmp_Protocol.value(),
-
-                src=self.lineEdit_icmp_SRCIP.text() if self.lineEdit_icmp_SRCIP.text() != "..." else "127.0.0.1",
-                dst=self.lineEdit_icmp_DSTIP.text() if self.lineEdit_icmp_DSTIP.text() != "..." else "127.0.0.1",
-                # options=[
-                #     #self.checkBox_icmp_options_Copied.isChecked(),
-                #     # self.spinBox_icmp_options_Class.value(),
-                #     # self.spinBox_icmp_options_Number.value(),
-                #     # self.spinBox_icmp_options_Length.value(),
-                #     # # self.plainTextEdit_icmp_options_Data.toPlainText()
-                # ]
-            ) \
-                    / inet.ICMP(
-                type=self.spinBox_icmp_Type.value(),
-                code=self.spinBox_icmp_Code.value()
-            )
-        elif self.tab_L4_Widget.currentIndex() == 0:  # TCP
-            frame = l2.Ether(
-            ) / inet.IP(
-                version=self.spinBox_ipv4_Version.value(),
-                ihl=self.spinBox_ipv4_IHL.value(),
-                tos=(self.spinBox_ipv4_DSCP.value() << 2) & self.spinBox_ipv4_ECN.value(),
-                len=self.spinBox_ipv4_TotalLength.value(),
-                id=self.spinBox_ipv4_Identification.value(),
-                flags=(int(self.checkBox_ipv4_MF.isChecked()) +
-                       int(self.checkBox_ipv4_DF.isChecked() << 1) +
-                       int(self.checkBox_ipv4_Res.isChecked() << 2)),
-                frag=self.spinBox_ipv4_FragmentOffset.value(),
-                ttl=self.spinBox_ipv4_TTL.value(),
-                proto=self.spinBox_ipv4_Protocol.value(),
-
-                src=self.lineEdit_ipv4_SRCIP.text() if self.lineEdit_icmp_SRCIP.text() != "..." else "127.0.0.1",
-                dst=self.lineEdit_ipv4_DSTIP.text() if self.lineEdit_icmp_DSTIP.text() != "..." else "127.0.0.1",
-                options=[
-                    self.checkBox_icmp_options_Copied.isChecked(),
-                    self.spinBox_icmp_options_Class.value(),
-                    self.spinBox_icmp_options_Number.value(),
-                    self.spinBox_icmp_options_Length.value(),
-                    # self.plainTextEdit_icmp_options_Data.toPlainText()
-                ]
-            ) \
-                    / inet.TCP(
-                sport=self.spinBox_tcp_SRCPort.value(),
-                dport=self.spinBox_tcp_DSTPort.value(),
-                seq=self.spinBox_tcp_SEQ.value(),
-                ack=self.spinBox_tcp_ACK.value(),
-                dataofs=self.spinBox_tcp_DataOffset.value(),
-                reserved=(int(self.checkBox_tcp_Res1.isChecked()) +
-                          int(self.checkBox_tcp_Res2.isChecked() << 1) +
-                          int(self.checkBox_tcp_Res3.isChecked() << 2)),
-                flags=(int(self.checkBox_tcp_Res4.isChecked()) +
-                      int(self.checkBox_tcp_CWR.isChecked() << 1) +
-                      int(self.checkBox_tcp_URG.isChecked() << 2) +
-                      int(self.checkBox_tcp_ACK.isChecked() << 3) +
-                      int(self.checkBox_tcp_PSH.isChecked() << 4) +
-                      int(self.checkBox_tcp_RST.isChecked() << 5) +
-                      int(self.checkBox_tcp_SYN.isChecked() << 6) +
-                      int(self.checkBox_tcp_FIN.isChecked() << 7)),
-                window=self.spinBox_tcp_WIN.value(),
-                chksum=self.lineEdit_tcp_Checksum.text() if self.lineEdit_tcp_Checksum.text() != "" else None,
-                urgptr=self.spinBox_tcp_Urgent.value(),
-                # options=(str(0x01) * 2 +  # WTF THIS CODE IS
-                #          str(0x08) +
-                #          str(0x0a) +
-                #          str(hex(int(time.time()))) if (self.checkBox_tcp_Nops.isChecked() and
-                #                                        self.checkBox_tcp_Timestamp.isChecked()) else
-                #          str(0x01) * 2 if self.checkBox_tcp_Nops.isChecked() else
-                #          str(hex(int(time.time()))))
-            )
-        else:  # UDP
-            pass
-
-        if srcmac != ":::::":
+        if (srcmac := self.lineEdit_mac_SRCMAC.text()) != ":::::":
             frame.src = srcmac
-        if dstmac != ":::::":
+        if (dstmac := self.lineEdit_mac_DSTMAC.text()) != ":::::":
             frame.dst = dstmac
 
+        if self.tab_L3_Widget.currentIndex() == 1:  # ICMP
+            icmpPacket = inet.ICMP()
+            if (ipVer := self.spinBox_icmp_Version.value()) != 0:
+                ipPacket.version = ipVer
+            if (ihl := self.spinBox_icmp_HeaderLenght.value()) != 0:
+                ipPacket.ihl = ihl
+            if (tos := self.spinBox_icmp_ToS.value()) != 0:
+                ipPacket.tos = tos
+            if (len := self.spinBox_icmp_TotalLenght.value()) != 0:
+                ipPacket.len = len
+            if (id := self.spinBox_icmp_Identifier.value()) != 0:
+                ipPacket.id = id
+            ipPacket.flags = (int(self.checkBox_icmp_MF.isChecked()) +
+                              int(self.checkBox_icmp_DF.isChecked() << 1) +
+                              int(self.checkBox_icmp_Res.isChecked() << 2))
+            if (frag := self.spinBox_icmp_FragmentOffset.value()) != 0:
+                ipPacket.frag = frag
+            if (ttl := self.spinBox_icmp_TTL.value()) != 0:
+                ipPacket.ttl = ttl
+            if (proto := self.spinBox_icmp_Protocol.value()) != 0:
+                ipPacket.proto = proto
+            # if crc := self.lineEdit_tcp_Checksum.text() != "":
+            #     ipPacket.chksum = crc
+            if (src := self.lineEdit_icmp_SRCIP.text()) != "...":
+                ipPacket.src = src
+            if (dst := self.lineEdit_icmp_DSTIP.text()) != "...":
+                ipPacket.dst = dst
+            opti = [self.checkBox_icmp_options_Copied.isChecked()]
+            if (clOpt := self.spinBox_icmp_options_Class.value()) != 0:
+                opti.append(clOpt)
+            if (nuOpt := self.spinBox_icmp_options_Number.value()) != 0:
+                opti.append(nuOpt)
+            if (leOpt := self.spinBox_icmp_options_Length.value()) != 0:
+                opti.append(leOpt)
+            if (daOpt := self.plainTextEdit_icmp_options_Data.toPlainText()) != "":
+                opti.append(daOpt)
+            # ipPacket.options = opti
+            # options not working because idk
+
+            if (type := self.spinBox_icmp_Type.value()) != 0:
+                icmpPacket.type = type
+            if (code := self.spinBox_icmp_Code.value()) != 0:
+                icmpPacket.code = code
+            ipPacket = ipPacket / icmpPacket
+        else:
+            ipPacket = inet.IP()
+            if (ipVer := self.spinBox_ipv4_Version.value()) != 0:
+                ipPacket.version = ipVer
+            if (ihl := self.spinBox_ipv4_IHL.value()) != 0:
+                ipPacket.ihl = ihl
+            if (tos := (self.spinBox_ipv4_DSCP.value() << 2 + self.spinBox_ipv4_ECN.value())) != 0:  # TODO: check this
+                ipPacket.tos = tos
+            if (len := self.spinBox_ipv4_TotalLength.value()) != 0:
+                ipPacket.len = len
+            if (id := self.spinBox_ipv4_Identification.value()) != 0:
+                ipPacket.id = id
+            ipPacket.flags = (int(self.checkBox_ipv4_MF.isChecked()) +
+                              int(self.checkBox_ipv4_DF.isChecked() << 1) +
+                              int(self.checkBox_ipv4_Res.isChecked() << 2))
+            if (frag := self.spinBox_ipv4_FragmentOffset.value()) != 0:
+                ipPacket.frag = frag
+            if (ttl := self.spinBox_ipv4_TTL.value()) != 0:
+                ipPacket.ttl = ttl
+            if (proto := self.spinBox_ipv4_Protocol.value()) != 0:
+                ipPacket.proto = proto
+            # if (crc := self.lineEdit_ipv4_Checksum.text() )!= "":
+            #     ipPacket.chksum = crc
+            if (src := self.lineEdit_ipv4_SRCIP.text()) != "...":
+                ipPacket.src = src
+            if (dst := self.lineEdit_ipv4_DSTIP.text()) != "...":
+                ipPacket.dst = dst
+            opti = [self.checkBox_ipv4_options_Copied.isChecked()]
+            if (clOpt := self.spinBox_ipv4_options_Class.value()) != 0:
+                opti.append(clOpt)
+            if (nuOpt := self.spinBox_ipv4_options_Number.value()) != 0:
+                opti.append(nuOpt)
+            if (leOpt := self.spinBox_ipv4_options_Length.value()) != 0:
+                opti.append(leOpt)
+            if (daOpt := self.plainTextEdit_ipv4_options_Data.toPlainText()) != "":
+                opti.append(daOpt)
+            # ipPacket.options = opti
+            # Options not working because of idk fixme
+
+            if self.tab_L4_Widget.currentIndex() == 0:  # TCP
+                tcpPacket = inet.TCP()
+                if (srcp := self.spinBox_tcp_SRCPort.value()) != 0:
+                    tcpPacket.sport = srcp
+                if (dstp := self.spinBox_tcp_DSTPort.value()) != 0:
+                    tcpPacket.dport = dstp
+                if (seq := self.spinBox_tcp_SEQ.value()) != 0:
+                    tcpPacket.seq = seq
+                if (ack := self.spinBox_tcp_ACK.value()) != 0:
+                    tcpPacket.ack = ack
+                if (dataoffs := self.spinBox_tcp_DataOffset.value()) != 0:
+                    tcpPacket.dataofs = dataoffs
+                tcpPacket.reserved = (int(self.checkBox_tcp_Res3.isChecked() << 2) +
+                                      int(self.checkBox_tcp_Res2.isChecked() << 1) +
+                                      int(self.checkBox_tcp_Res1.isChecked() << 0))
+                tcpPacket.flags = (int(self.checkBox_tcp_Res4.isChecked()<< 8) +
+                                   int(self.checkBox_tcp_CWR.isChecked() << 7) +
+                                   int(self.checkBox_tcp_ECE.isChecked() << 6) +
+                                   int(self.checkBox_tcp_URG.isChecked() << 5) +
+                                   int(self.checkBox_tcp_ACK.isChecked() << 4) +
+                                   int(self.checkBox_tcp_PSH.isChecked() << 3) +
+                                   int(self.checkBox_tcp_RST.isChecked() << 2) +
+                                   int(self.checkBox_tcp_SYN.isChecked() << 1) +
+                                   int(self.checkBox_tcp_FIN.isChecked() << 0))
+                if (win := self.spinBox_tcp_WIN.value()) != 0:
+                    tcpPacket.window = win
+                # if crc := self.lineEdit_tcp_Checksum.text() != "":
+                #     tcpPacket.chksum = crc
+                if (urgP := self.spinBox_tcp_Urgent.value()) != 0:
+                    tcpPacket.urgptr = urgP
+                tcpopti = ""
+                if self.checkBox_tcp_Nops.isChecked():
+                    tcpopti = tcpopti + 2 * str(0x01)
+                if self.checkBox_tcp_Timestamp.isChecked():
+                    tcpopti = tcpopti + str(0x08) + str(0x0a) + str(hex(int(time.time())))
+                tcpPacket.options = tcpopti
+
+                ipPacket = ipPacket/tcpPacket
+            else:
+                udpPacket = inet.UDP()
+
+                if (sport := self.spinBox_udp_SRCPort.value()) != 0:
+                    udpPacket.sport = sport
+                if (dport := self.spinBox_udp_DSTPort.value()) != 0:
+                    udpPacket.dport = dport
+                if (len := self.spinBox_udp_Length.value()) != 0:
+                    udpPacket.len = len
+
+                # for chksum
+                pkt = inet.IP() / udpPacket
+                pkt = inet.IP(inet.raw(pkt))
+                if self.lineEdit_udp_Checksum.text() != "" and pkt[inet.UDP].chksum != self.lineEdit_udp_Checksum.text():
+                    udpPacket.chksum = int(self.lineEdit_udp_Checksum.text())
+                ipPacket = ipPacket/udpPacket
+
+        frame = frame/ipPacket
+
+
         for t in range(times):
-            l2.sendp(frame, return_packets=True, verbose=None)
+            l2.sendp(frame, return_packets=True, verbose=False)
             time.sleep(delay / 1000)
 
     def showBitChange(self, nState, bitname="", proto=""):

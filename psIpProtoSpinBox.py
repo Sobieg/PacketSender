@@ -11,5 +11,5 @@ class PSIpProtoSpinBox(QtWidgets.QSpinBox, design.Ui_PacketSender):
         if state == 0:
             super().setValue(6)
         elif state == 1:
-            super().setValue(8)
+            super().setValue(17)
 
