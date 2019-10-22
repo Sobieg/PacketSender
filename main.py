@@ -1,6 +1,5 @@
 import sys
-import os
-import socket
+
 import time
 import psutil
 import random
@@ -20,9 +19,9 @@ DEBUG = True #WTF I WANT IFDEF
 # TODO: 1) change checksums fields from spinboxes to text fields DONE
 # TODO: 2) merge ipv4 fields in ipv4 and icmp tabs DONE
 # TODO: 3) MAC from ip DONE
-# TODO: 4) generate packet by pressing send button
+# TODO: 4) generate packet by pressing send button DONE
 # TODO: 5) generate new checksum when return pressed in every method _Changed
-# TODO: 6) Check values from forms and if it is not changed, use default values
+# TODO: 6) Check values from forms and if it is not changed, use default values DONE
 # TODO: 7) Generate packet in separate method and get checksum from it
 # TODO: 8) Checksums in the end of generating packet, before sending.
 

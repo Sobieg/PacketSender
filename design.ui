@@ -831,6 +831,9 @@
                <layout class="QHBoxLayout" name="horizontalLayout_36">
                 <item>
                  <widget class="QLabel" name="label_ipv4_Option">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="text">
                    <string>Options</string>
                   </property>
@@ -840,6 +843,9 @@
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
                    <widget class="QCheckBox" name="checkBox_ipv4_options_Copied">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="text">
                      <string>Copied</string>
                     </property>
@@ -849,6 +855,9 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_32">
                     <item>
                      <widget class="QLabel" name="label_ipv4_options_Class">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="text">
                        <string>Class</string>
                       </property>
@@ -856,6 +865,9 @@
                     </item>
                     <item>
                      <widget class="QSpinBox" name="spinBox_ipv4_options_Class">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -894,6 +906,9 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_33">
                     <item>
                      <widget class="QLabel" name="label_ipv4_options_Number">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="text">
                        <string>Number</string>
                       </property>
@@ -901,6 +916,9 @@
                     </item>
                     <item>
                      <widget class="QSpinBox" name="spinBox_ipv4_options_Number">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -939,6 +957,9 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_34">
                     <item>
                      <widget class="QLabel" name="label_ipv4_options_Length">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="text">
                        <string>Length</string>
                       </property>
@@ -946,6 +967,9 @@
                     </item>
                     <item>
                      <widget class="QSpinBox" name="spinBox_ipv4_options_Length">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="focusPolicy">
                        <enum>Qt::WheelFocus</enum>
                       </property>
@@ -984,13 +1008,20 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_35">
                     <item>
                      <widget class="QLabel" name="label_ipv4_options_Data">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="text">
                        <string>Data</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QPlainTextEdit" name="plainTextEdit_ipv4_options_Data"/>
+                     <widget class="QPlainTextEdit" name="plainTextEdit_ipv4_options_Data">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </item>
