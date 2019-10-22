@@ -1,13 +1,16 @@
 import sys
-import os
-import socket
+
 import time
 import psutil
 import random
-from scapy.layers.l2 import *
+from scapy.layers import inet, l2
 
 from PyQt5 import QtWidgets, QtCore, QtGui
+
 import design
+
+DEBUG = True #WTF I WANT IFDEF
+
 
 "Naming objects: " \
 "class_tabname_Name"
@@ -16,8 +19,11 @@ import design
 # TODO: 1) change checksums fields from spinboxes to text fields DONE
 # TODO: 2) merge ipv4 fields in ipv4 and icmp tabs DONE
 # TODO: 3) MAC from ip DONE
-# TODO: 4) generate packet by pressing send button
-# TODO: 5) generate new checksum in every method _Changed
+# TODO: 4) generate packet by pressing send button DONE
+# TODO: 5) generate new checksum when return pressed in every method _Changed
+# TODO: 6) Check values from forms and if it is not changed, use default values DONE
+# TODO: 7) Generate packet in separate method and get checksum from it
+# TODO: 8) Checksums in the end of generating packet, before sending.
 
 
 class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
@@ -25,7 +31,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         super().__init__()
         self.setupUi(self)
 
-        # Load interfecases
+        # Load interfaces
         self.statusBar.showMessage("Loading interfaces ...")
         self.refreshNetworkInterfaces()
         self.statusBar.showMessage("Loading interfaces ... done")
@@ -45,14 +51,160 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         for NICname in addrs.keys():
             self.comboInterfacesBox.addItem(NICname)
 
-    def getTimesSend(self):
-        return self.timesSpinBox.value()
+    def sendPacket(self, times, delay):
 
-    def getDelaySend(self):
-        return self.delaySpinBox.value()
+        frame = l2.Ether()
+        ipPacket = inet.IP()
 
-    def sendPacket(self):
-        print("Sent")
+        if (srcmac := self.lineEdit_mac_SRCMAC.text()) != ":::::":
+            frame.src = srcmac
+        if (dstmac := self.lineEdit_mac_DSTMAC.text()) != ":::::":
+            frame.dst = dstmac
+
+        if self.tab_L3_Widget.currentIndex() == 1:  # ICMP
+            icmpPacket = inet.ICMP()
+            if (ipVer := self.spinBox_icmp_Version.value()) != 0:
+                ipPacket.version = ipVer
+            if (ihl := self.spinBox_icmp_HeaderLenght.value()) != 0:
+                ipPacket.ihl = ihl
+            if (tos := self.spinBox_icmp_ToS.value()) != 0:
+                ipPacket.tos = tos
+            if (len := self.spinBox_icmp_TotalLenght.value()) != 0:
+                ipPacket.len = len
+            if (id := self.spinBox_icmp_Identifier.value()) != 0:
+                ipPacket.id = id
+            ipPacket.flags = (int(self.checkBox_icmp_MF.isChecked()) +
+                              int(self.checkBox_icmp_DF.isChecked() << 1) +
+                              int(self.checkBox_icmp_Res.isChecked() << 2))
+            if (frag := self.spinBox_icmp_FragmentOffset.value()) != 0:
+                ipPacket.frag = frag
+            if (ttl := self.spinBox_icmp_TTL.value()) != 0:
+                ipPacket.ttl = ttl
+            if (proto := self.spinBox_icmp_Protocol.value()) != 0:
+                ipPacket.proto = proto
+            # if crc := self.lineEdit_tcp_Checksum.text() != "":
+            #     ipPacket.chksum = crc
+            if (src := self.lineEdit_icmp_SRCIP.text()) != "...":
+                ipPacket.src = src
+            if (dst := self.lineEdit_icmp_DSTIP.text()) != "...":
+                ipPacket.dst = dst
+            opti = [self.checkBox_icmp_options_Copied.isChecked()]
+            if (clOpt := self.spinBox_icmp_options_Class.value()) != 0:
+                opti.append(clOpt)
+            if (nuOpt := self.spinBox_icmp_options_Number.value()) != 0:
+                opti.append(nuOpt)
+            if (leOpt := self.spinBox_icmp_options_Length.value()) != 0:
+                opti.append(leOpt)
+            if (daOpt := self.plainTextEdit_icmp_options_Data.toPlainText()) != "":
+                opti.append(daOpt)
+            # ipPacket.options = opti
+            # options not working because idk
+
+            if (type := self.spinBox_icmp_Type.value()) != 0:
+                icmpPacket.type = type
+            if (code := self.spinBox_icmp_Code.value()) != 0:
+                icmpPacket.code = code
+            ipPacket = ipPacket / icmpPacket
+        else:
+            ipPacket = inet.IP()
+            if (ipVer := self.spinBox_ipv4_Version.value()) != 0:
+                ipPacket.version = ipVer
+            if (ihl := self.spinBox_ipv4_IHL.value()) != 0:
+                ipPacket.ihl = ihl
+            if (tos := (self.spinBox_ipv4_DSCP.value() << 2 + self.spinBox_ipv4_ECN.value())) != 0:  # TODO: check this
+                ipPacket.tos = tos
+            if (len := self.spinBox_ipv4_TotalLength.value()) != 0:
+                ipPacket.len = len
+            if (id := self.spinBox_ipv4_Identification.value()) != 0:
+                ipPacket.id = id
+            ipPacket.flags = (int(self.checkBox_ipv4_MF.isChecked()) +
+                              int(self.checkBox_ipv4_DF.isChecked() << 1) +
+                              int(self.checkBox_ipv4_Res.isChecked() << 2))
+            if (frag := self.spinBox_ipv4_FragmentOffset.value()) != 0:
+                ipPacket.frag = frag
+            if (ttl := self.spinBox_ipv4_TTL.value()) != 0:
+                ipPacket.ttl = ttl
+            if (proto := self.spinBox_ipv4_Protocol.value()) != 0:
+                ipPacket.proto = proto
+            # if (crc := self.lineEdit_ipv4_Checksum.text() )!= "":
+            #     ipPacket.chksum = crc
+            if (src := self.lineEdit_ipv4_SRCIP.text()) != "...":
+                ipPacket.src = src
+            if (dst := self.lineEdit_ipv4_DSTIP.text()) != "...":
+                ipPacket.dst = dst
+            opti = [self.checkBox_ipv4_options_Copied.isChecked()]
+            if (clOpt := self.spinBox_ipv4_options_Class.value()) != 0:
+                opti.append(clOpt)
+            if (nuOpt := self.spinBox_ipv4_options_Number.value()) != 0:
+                opti.append(nuOpt)
+            if (leOpt := self.spinBox_ipv4_options_Length.value()) != 0:
+                opti.append(leOpt)
+            if (daOpt := self.plainTextEdit_ipv4_options_Data.toPlainText()) != "":
+                opti.append(daOpt)
+            # ipPacket.options = opti
+            # Options not working because of idk fixme
+
+            if self.tab_L4_Widget.currentIndex() == 0:  # TCP
+                tcpPacket = inet.TCP()
+                if (srcp := self.spinBox_tcp_SRCPort.value()) != 0:
+                    tcpPacket.sport = srcp
+                if (dstp := self.spinBox_tcp_DSTPort.value()) != 0:
+                    tcpPacket.dport = dstp
+                if (seq := self.spinBox_tcp_SEQ.value()) != 0:
+                    tcpPacket.seq = seq
+                if (ack := self.spinBox_tcp_ACK.value()) != 0:
+                    tcpPacket.ack = ack
+                if (dataoffs := self.spinBox_tcp_DataOffset.value()) != 0:
+                    tcpPacket.dataofs = dataoffs
+                tcpPacket.reserved = (int(self.checkBox_tcp_Res3.isChecked() << 2) +
+                                      int(self.checkBox_tcp_Res2.isChecked() << 1) +
+                                      int(self.checkBox_tcp_Res1.isChecked() << 0))
+                tcpPacket.flags = (int(self.checkBox_tcp_Res4.isChecked()<< 8) +
+                                   int(self.checkBox_tcp_CWR.isChecked() << 7) +
+                                   int(self.checkBox_tcp_ECE.isChecked() << 6) +
+                                   int(self.checkBox_tcp_URG.isChecked() << 5) +
+                                   int(self.checkBox_tcp_ACK.isChecked() << 4) +
+                                   int(self.checkBox_tcp_PSH.isChecked() << 3) +
+                                   int(self.checkBox_tcp_RST.isChecked() << 2) +
+                                   int(self.checkBox_tcp_SYN.isChecked() << 1) +
+                                   int(self.checkBox_tcp_FIN.isChecked() << 0))
+                if (win := self.spinBox_tcp_WIN.value()) != 0:
+                    tcpPacket.window = win
+                # if crc := self.lineEdit_tcp_Checksum.text() != "":
+                #     tcpPacket.chksum = crc
+                if (urgP := self.spinBox_tcp_Urgent.value()) != 0:
+                    tcpPacket.urgptr = urgP
+                tcpopti = ""
+                if self.checkBox_tcp_Nops.isChecked():
+                    tcpopti = tcpopti + 2 * str(0x01)
+                if self.checkBox_tcp_Timestamp.isChecked():
+                    tcpopti = tcpopti + str(0x08) + str(0x0a) + str(hex(int(time.time())))
+                tcpPacket.options = tcpopti
+
+                ipPacket = ipPacket/tcpPacket
+            else:
+                udpPacket = inet.UDP()
+
+                if (sport := self.spinBox_udp_SRCPort.value()) != 0:
+                    udpPacket.sport = sport
+                if (dport := self.spinBox_udp_DSTPort.value()) != 0:
+                    udpPacket.dport = dport
+                if (len := self.spinBox_udp_Length.value()) != 0:
+                    udpPacket.len = len
+
+                # for chksum
+                pkt = inet.IP() / udpPacket
+                pkt = inet.IP(inet.raw(pkt))
+                if self.lineEdit_udp_Checksum.text() != "" and pkt[inet.UDP].chksum != self.lineEdit_udp_Checksum.text():
+                    udpPacket.chksum = int(self.lineEdit_udp_Checksum.text())
+                ipPacket = ipPacket/udpPacket
+
+        frame = frame/ipPacket
+
+
+        for t in range(times):
+            l2.sendp(frame, return_packets=True, verbose=False)
+            time.sleep(delay / 1000)
 
     def showBitChange(self, nState, bitname="", proto=""):
         if nState:
@@ -62,8 +214,9 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
     def getMacAddress(self, ip="0.0.0.0"):
         try:
-            mac = getmacbyip(ip)
+            mac = l2.getmacbyip(ip)
             if mac == "ff:ff:ff:ff:ff:ff" or mac == "00:00:00:00:00:00":
+                # tested only on Mac OS, and not working pretty well with virtual interfaces, like virtualbox interfaces
                 return psutil.net_if_addrs()[self.comboInterfacesBox.currentText()][1].address
             else:
                 return mac
@@ -72,12 +225,10 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
     # Slots:
     def sendBtnClicked(self):
-        times = self.getTimesSend()
-        delay = self.getDelaySend()
+        times = self.timesSpinBox.value()
+        delay = self.delaySpinBox.value()
         print("pushed button send with times = ", times, " delay = ", delay)
-        for i in range(times):
-            self.sendPacket()
-            time.sleep(delay / 1000)
+        self.sendPacket(times, delay)
 
     def tcpSourcePortChanged(self):
         nValue = self.spinBox_tcp_SRCPort.text()
@@ -236,7 +387,14 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         # Fixme: need to change icmp SCR ip after changing ipv4 SRC ip and other way. If set slot/signal done
         #       other fields, caret will go to the end of line every time when user type one char
         # TODO: regexp value and pass only correct done with try/catch
-        nValue = self.lineEdit_ipv4_SRCIP.text()
+
+        ind = self.tab_L3_Widget.currentIndex()
+        if ind == 0:
+            nValue = self.lineEdit_ipv4_SRCIP.text()
+            self.lineEdit_icmp_SRCIP.setText(nValue)
+        else:
+            nValue = self.lineEdit_icmp_SRCIP.text()
+            self.lineEdit_ipv4_SRCIP.setText(nValue)
         self.lineEdit_mac_SRCMAC.setText(self.getMacAddress(nValue))
 
         self.statusBar.showMessage("IPv4 SRC IP length changed to " + str(nValue), 1000)
@@ -244,7 +402,13 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
     def ipv4DSTIPChanged(self):
         # Fixme: need to change icmp DST ip after changing ipv4 DST ip and other way. If set slot/signal done
         #       other fields, caret will go to the end of line every time when user type one char
-        nValue = self.lineEdit_ipv4_DSTIP.text()
+        ind = self.tab_L3_Widget.currentIndex()
+        if ind == 0:
+            nValue = self.lineEdit_ipv4_DSTIP.text()
+            self.lineEdit_icmp_DSTIP.setText(nValue)
+        else:
+            nValue = self.lineEdit_icmp_DSTIP.text()
+            self.lineEdit_ipv4_DSTIP.setText(nValue)
         self.lineEdit_mac_DSTMAC.setText(self.getMacAddress(nValue))
         self.statusBar.showMessage("IPv4 DST IP length changed to " + str(nValue), 1000)
 
@@ -319,7 +483,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
 # To get plain text from plain text:
 # text = self.plainTextEdit_tcp_Data.toPlainText()
