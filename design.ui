@@ -493,11 +493,22 @@
                </widget>
               </item>
               <item>
-               <widget class="QPlainTextEdit" name="plainTextEdit_tcp_Data">
-                <property name="placeholderText">
-                 <string/>
-                </property>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <item>
+                 <widget class="QPlainTextEdit" name="plainTextEdit_tcp_Data">
+                  <property name="placeholderText">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_6">
+                  <property name="text">
+                   <string>Open file</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
