@@ -1,16 +1,19 @@
 import sys
+import os
 
 import time
 import psutil
 import random
+import re
+import glob
 from scapy.layers import inet, l2
+from scapy.all import wrpcap, rdpcap
 
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets
 
 import design
 
-DEBUG = True #WTF I WANT IFDEF
-
+DEBUG = True  # WTF I WANT IFDEF
 
 "Naming objects: " \
 "class_tabname_Name"
@@ -24,9 +27,15 @@ DEBUG = True #WTF I WANT IFDEF
 # TODO: 6) Check values from forms and if it is not changed, use default values DONE
 # TODO: 7) Generate packet in separate method and get checksum from it
 # TODO: 8) Checksums in the end of generating packet, before sending.
+# TODO: 9) Add queue
+# TODO: 10) Add saving packets DONE
+# TODO: 11) If not exists dir "packets", create it DONE
+# TODO: 12) Method to get packet. This packet to send, or to save. DONE
 
 
 class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
+    packetsDir = "packets"
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -42,6 +51,12 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         self.spinBox_udp_SRCPort.setValue(self.spinBox_tcp_SRCPort.value())
         self.statusBar.showMessage("Generating random SRC port ... done")
 
+        self.statusBar.showMessage("Check directory 'packets' ... done")
+
+        if not os.path.exists(self.packetsDir) or not os.path.isdir(self.packetsDir):
+            os.mkdir(self.packetsDir)
+        self.refreshPacketsBtnClicked()
+
         self.statusBar.showMessage("Ready")
 
     # Help methods:
@@ -51,8 +66,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         for NICname in addrs.keys():
             self.comboInterfacesBox.addItem(NICname)
 
-    def sendPacket(self, times, delay):
-
+    def getFrame(self):
         frame = l2.Ether()
         ipPacket = inet.IP()
 
@@ -159,7 +173,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                 tcpPacket.reserved = (int(self.checkBox_tcp_Res3.isChecked() << 2) +
                                       int(self.checkBox_tcp_Res2.isChecked() << 1) +
                                       int(self.checkBox_tcp_Res1.isChecked() << 0))
-                tcpPacket.flags = (int(self.checkBox_tcp_Res4.isChecked()<< 8) +
+                tcpPacket.flags = (int(self.checkBox_tcp_Res4.isChecked() << 8) +
                                    int(self.checkBox_tcp_CWR.isChecked() << 7) +
                                    int(self.checkBox_tcp_ECE.isChecked() << 6) +
                                    int(self.checkBox_tcp_URG.isChecked() << 5) +
@@ -181,7 +195,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                     tcpopti = tcpopti + str(0x08) + str(0x0a) + str(hex(int(time.time())))
                 tcpPacket.options = tcpopti
 
-                ipPacket = ipPacket/tcpPacket
+                ipPacket = ipPacket / tcpPacket
             else:
                 udpPacket = inet.UDP()
 
@@ -195,16 +209,31 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                 # for chksum
                 pkt = inet.IP() / udpPacket
                 pkt = inet.IP(inet.raw(pkt))
-                if self.lineEdit_udp_Checksum.text() != "" and pkt[inet.UDP].chksum != self.lineEdit_udp_Checksum.text():
+                if self.lineEdit_udp_Checksum.text() != "" and pkt[
+                    inet.UDP].chksum != self.lineEdit_udp_Checksum.text():
                     udpPacket.chksum = int(self.lineEdit_udp_Checksum.text())
-                ipPacket = ipPacket/udpPacket
+                ipPacket = ipPacket / udpPacket
 
-        frame = frame/ipPacket
+        frame = frame / ipPacket
+        # self.currentFrame = frame
+        return frame
 
+    def sendPacket(self, times, delay):
+
+        frame = self.getFrame()
 
         for t in range(times):
             l2.sendp(frame, return_packets=True, verbose=False)
             time.sleep(delay / 1000)
+
+    def sendQueue(self, times, delay):
+        items = self.listWidget_Bottom_Queue.count()
+        for t in range(times):
+            for i in range(items):
+                frame = rdpcap("./" + self.packetsDir + "/" + self.listWidget_Bottom_Queue.item(i).text())[0]
+                l2.sendp(frame, return_packets=True, verbose=False)
+            time.sleep(delay/1000)
+        self.listWidget_Bottom_Queue.clear()
 
     def showBitChange(self, nState, bitname="", proto=""):
         if nState:
@@ -223,12 +252,158 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         except:
             pass
 
+    def fillIPv4(self, ip_packet):
+        self.spinBox_ipv4_Version.setValue(ip_packet.getfield_and_val('version')[1])
+        self.spinBox_ipv4_IHL.setValue(ip_packet.getfield_and_val('ihl')[1])
+        self.spinBox_ipv4_DSCP.setValue(ip_packet.getfield_and_val('tos')[1] & 0b11111100)
+        self.spinBox_ipv4_ECN.setValue(ip_packet.getfield_and_val('tos')[1] & 0b00000011)
+        self.spinBox_ipv4_TotalLength.setValue(ip_packet.getfield_and_val('len')[1])
+        self.spinBox_ipv4_Identification.setValue(ip_packet.getfield_and_val('id')[1])
+        self.checkBox_ipv4_Res.setChecked(
+            True if re.search("evil", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_ipv4_MF.setChecked(
+            True if re.search("MF", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_ipv4_DF.setChecked(
+            True if re.search("DF", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.spinBox_ipv4_FragmentOffset.setValue(ip_packet.getfield_and_val('frag')[1])
+        self.spinBox_ipv4_TTL.setValue(ip_packet.getfield_and_val('ttl')[1])
+        self.spinBox_ipv4_Protocol.setValue(ip_packet.getfield_and_val('proto')[1])
+        # TODO checksum not implemented
+        # self.lineEdit_icmp_Checksum.setText(ip_packet.getfield_and_val('chksum')[1] if ip_packet.getfield_and_val('chksum')[1] else "")
+        self.lineEdit_ipv4_SRCIP.setText(ip_packet.getfield_and_val('src')[1])
+        self.lineEdit_ipv4_DSTIP.setText(ip_packet.getfield_and_val('dst')[1])
+        # TODO options not implemented
+
+    def fillICMP(self, ip_packet):
+        self.tab_L3_Widget.setCurrentIndex(1)
+        self.spinBox_icmp_Version.setValue(ip_packet.getfield_and_val('version')[1])
+        self.spinBox_icmp_HeaderLenght.setValue(ip_packet.getfield_and_val('ihl')[1])
+        self.spinBox_icmp_ToS.setValue(ip_packet.getfield_and_val('tos')[1])
+        self.spinBox_icmp_TotalLenght.setValue(ip_packet.getfield_and_val('len')[1])
+        self.spinBox_icmp_Identifier.setValue(ip_packet.getfield_and_val('id')[1])
+        self.checkBox_icmp_Res.setChecked(True if re.search("evil", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_icmp_MF.setChecked(True if re.search("MF", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_icmp_DF.setChecked(True if re.search("DF", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.spinBox_icmp_FragmentOffset.setValue(ip_packet.getfield_and_val('frag')[1])
+        self.spinBox_icmp_TTL.setValue(ip_packet.getfield_and_val('ttl')[1])
+        self.spinBox_icmp_Protocol.setValue(ip_packet.getfield_and_val('proto')[1])
+        # TODO checksum not implemented
+        # self.lineEdit_icmp_Checksum.setText(ip_packet.getfield_and_val('chksum')[1] if ip_packet.getfield_and_val('chksum')[1] else "")
+        self.lineEdit_icmp_SRCIP.setText(ip_packet.getfield_and_val('src')[1])
+        self.lineEdit_icmp_DSTIP.setText(ip_packet.getfield_and_val('dst')[1])
+        # TODO options not implemented
+
+    def fillTCP(self, tcp_packet):
+        self.spinBox_tcp_SRCPort.setValue(tcp_packet.getfield_and_val('sport')[1])
+        self.spinBox_tcp_DSTPort.setValue(tcp_packet.getfield_and_val('dport')[1])
+        self.spinBox_tcp_SEQ.setValue(tcp_packet.getfield_and_val('seq')[1])
+        self.spinBox_tcp_ACK.setValue(tcp_packet.getfield_and_val('ack')[1])
+        self.spinBox_tcp_DataOffset.setValue(tcp_packet.getfield_and_val('dataofs')[1])
+        self.checkBox_tcp_FIN.setChecked(True if re.search("F", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_SYN.setChecked(True if re.search("S", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_RST.setChecked(True if re.search("R", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_PSH.setChecked(True if re.search("P", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_ACK.setChecked(True if re.search("A", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_URG.setChecked(True if re.search("U", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_ECE.setChecked(True if re.search("E", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_CWR.setChecked(True if re.search("C", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_Res4.setChecked(True if re.search("N", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_Res3.setChecked(True if tcp_packet.getfield_and_val('reserved')[1] >> 2 & 1 else False)
+        self.checkBox_tcp_Res2.setChecked(True if tcp_packet.getfield_and_val('reserved')[1] >> 1 & 1 else False)
+        self.checkBox_tcp_Res1.setChecked(True if tcp_packet.getfield_and_val('reserved')[1] >> 0 & 1 else False)
+        self.spinBox_tcp_WIN.setValue(tcp_packet.getfield_and_val('window')[1])
+        # TODO checksum not implemented
+        self.spinBox_tcp_Urgent.setValue(tcp_packet.getfield_and_val('urgptr')[1])
+        # TODO options not implemented
+
+    def fillUDP(self, udp_packet):
+        self.spinBox_udp_SRCPort.setValue(udp_packet.getfield_and_val('sport')[1])
+        self.spinBox_udp_DSTPort.setValue(udp_packet.getfield_and_val('dport')[1])
+        self.spinBox_udp_Length.setValue(udp_packet.getfield_and_val('len')[1])
+        #TODO checksim not implemented
+
+    def fillEther(self, frame):
+        self.lineEdit_mac_DSTMAC.setText(frame.getfield_and_val('dst')[1])
+        self.lineEdit_mac_SRCMAC.setText(frame.getfield_and_val('src')[1])
+
+    def refreshAll(self, frame=None):
+        if not frame:
+            frame = self.getFrame()
+
+        ip_packet = inet.IP(frame.payload)
+
+        if frame.payload.payload.name == "NoPayload":
+            self.statusBar.showMessage("Sorry, only correct packets can be loaded. Loading L2 and L3...", 1000)
+            if self.tab_L3_Widget.currentIndex() == 0:
+                self.fillIPv4(ip_packet)
+            else:
+                self.fillICMP(ip_packet)
+            # TODO: according to current tab place values in ipv4 or icmp DONE
+
+        if frame.payload.payload.name == "TCP":
+            tcp_packet = inet.TCP(ip_packet.payload)
+            self.tab_L3_Widget.setCurrentIndex(0)
+            self.tab_L4_Widget.setCurrentIndex(0)
+            self.fillIPv4(ip_packet)
+            self.fillTCP(tcp_packet)
+        elif frame.payload.payload.name == "UDP":
+            udp_packet = inet.UDP(ip_packet.payload)
+            self.tab_L3_Widget.setCurrentIndex(0)
+            self.tab_L4_Widget.setCurrentIndex(1)
+            self.fillIPv4(ip_packet)
+            self.fillUDP(udp_packet)
+        elif frame.payload.payload.name == "Raw" or frame.payload.payload.name == "Padding":  # ICMP, but need to be carefull if want to use this later
+            self.fillICMP(ip_packet)
+        elif frame.payload.payload.name == "ICMP":
+            self.fillICMP(ip_packet)
+            icmp_packet = inet.ICMP(ip_packet.payload)
+            self.spinBox_icmp_Type.setValue(icmp_packet.getfield_and_val('type')[1])
+            self.spinBox_icmp_Code.setValue(icmp_packet.getfield_and_val('code')[1])
+            # TODO checksum not implemented
+
+        self.fillEther(frame)
+
     # Slots:
     def sendBtnClicked(self):
         times = self.timesSpinBox.value()
         delay = self.delaySpinBox.value()
         print("pushed button send with times = ", times, " delay = ", delay)
-        self.sendPacket(times, delay)
+        if self.listWidget_Bottom_Queue.count() != 0:
+            self.sendQueue(times,delay)
+        else:
+            self.sendPacket(times, delay)
+
+    def saveBtnClicked(self):
+        fname = QtWidgets.QFileDialog.getSaveFileName(self, "Choose file", "./" + self.packetsDir)[0]
+        if fname != '':
+            pcap = r"\s*\.pcap$"
+            if not re.search(pcap, fname, re.MULTILINE):
+                fname = fname + ".pcap"
+        else:
+            fname = self.packetsDir + "/filename.pcap"
+        wrpcap(fname, self.getFrame())
+        self.refreshPacketsBtnClicked()
+
+    def toQueueBtnClicked(self):
+        item = self.listWidget_Bottom_Packets.currentItem()
+        newItem = QtWidgets.QListWidgetItem(item)
+        self.listWidget_Bottom_Queue.addItem(newItem)
+
+    def refreshAllBtnClicked(self):
+        self.refreshAll()
+
+    def refreshPacketsBtnClicked(self):
+        self.listWidget_Bottom_Packets.clear()
+        # self.listView_Bottom_Packets.clear()
+        files = glob.glob(r"./" + self.packetsDir + r"/*.pcap")
+        for file in files:
+            file = re.sub(r'\./' + self.packetsDir + r"/", r'', file)
+            self.listWidget_Bottom_Packets.addItem(file)
+
+    def loadPacket(self, item):
+        name = item.text()
+        frame = rdpcap("./" + self.packetsDir + "/" + name)[0]
+        self.refreshAll(frame)
 
     def tcpSourcePortChanged(self):
         nValue = self.spinBox_tcp_SRCPort.text()
