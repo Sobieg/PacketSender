@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1425</width>
+    <width>1440</width>
     <height>855</height>
    </rect>
   </property>
@@ -487,6 +487,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout_43">
               <item>
                <widget class="QLabel" name="label_tcp_Data">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Data</string>
                 </property>
@@ -496,6 +499,9 @@
                <layout class="QVBoxLayout" name="verticalLayout_12">
                 <item>
                  <widget class="QPlainTextEdit" name="plainTextEdit_tcp_Data">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="placeholderText">
                    <string/>
                   </property>
@@ -503,6 +509,9 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="pushButton_6">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="text">
                    <string>Open file</string>
                   </property>
@@ -661,17 +670,37 @@
              <layout class="QHBoxLayout" name="horizontalLayout_44">
               <item>
                <widget class="QLabel" name="label_udp_Data">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Data</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPlainTextEdit" name="plainTextEdit_udp_Data">
-                <property name="placeholderText">
-                 <string>Only plain text, sorry</string>
-                </property>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout_14">
+                <item>
+                 <widget class="QPlainTextEdit" name="plainTextEdit_udp_Data">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Only plain text, sorry</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_7">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="text">
+                   <string>Open file</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
@@ -1044,6 +1073,9 @@
                <layout class="QHBoxLayout" name="horizontalLayout_72">
                 <item>
                  <widget class="QLabel" name="label_ipv4_Data">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="text">
                    <string>Data</string>
                   </property>
@@ -1053,6 +1085,9 @@
                  <layout class="QVBoxLayout" name="verticalLayout_4">
                   <item>
                    <widget class="QPlainTextEdit" name="plainTextEdit_ipv4_Data">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="placeholderText">
                      <string/>
                     </property>
@@ -1060,6 +1095,9 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="text">
                      <string>Refresh</string>
                     </property>
@@ -2259,6 +2297,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout_42">
               <item>
                <widget class="QLabel" name="label_mac_Data">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Data</string>
                 </property>
@@ -2267,10 +2308,17 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_5">
                 <item>
-                 <widget class="QPlainTextEdit" name="plainTextEdit_mac_Data"/>
+                 <widget class="QPlainTextEdit" name="plainTextEdit_mac_Data">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="pushButton_5">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="text">
                    <string>Refresh</string>
                   </property>
@@ -2331,24 +2379,57 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="text">
-           <string>Save</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_29">
+          <item>
+           <widget class="QPushButton" name="pushButton_Bottom_Save">
+            <property name="text">
+             <string>Save</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>Delete</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QListWidgetSavedPackets" name="listWidget"/>
+         <layout class="QVBoxLayout" name="verticalLayout_17">
+          <item>
+           <widget class="QListWidgetSavedPackets" name="listWidget_Bottom_Packets"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_Bottom_Packets_Refresh">
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="text">
-           <string>To queue</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_26">
+          <item>
+           <widget class="QPushButton" name="pushButton_Bottom_ToQueue">
+            <property name="text">
+             <string>To queue</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_Bottom_Queue_Delete">
+            <property name="text">
+             <string>Delete</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QListWidgetPacketsQueue" name="listWidget_2"/>
+         <widget class="QListWidgetPacketsQueue" name="listWidget_Bottom_Queue"/>
         </item>
        </layout>
       </item>
@@ -2405,7 +2486,7 @@
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="pushButton_Bottom_RefreshAll">
           <property name="text">
            <string>Refresh All</string>
           </property>
@@ -2440,6 +2521,9 @@
    <class>QListWidgetSavedPackets</class>
    <extends>QListWidget</extends>
    <header location="global">qlistwidgetsavedpackets</header>
+   <slots>
+    <slot>refresh()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -2707,8 +2791,8 @@
    <slot>sendBtnClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1301</x>
-     <y>789</y>
+     <x>1286</x>
+     <y>753</y>
     </hint>
     <hint type="destinationlabel">
      <x>1234</x>
@@ -2756,7 +2840,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>632</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>511</x>
@@ -2772,7 +2856,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>675</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>18</x>
@@ -2788,7 +2872,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>29</x>
@@ -2931,8 +3015,8 @@
    <slot>ipv4DataChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1055</x>
-     <y>647</y>
+     <x>1049</x>
+     <y>596</y>
     </hint>
     <hint type="destinationlabel">
      <x>1106</x>
@@ -2984,7 +3068,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>203</y>
+     <y>200</y>
     </hint>
    </hints>
   </connection>
@@ -2996,11 +3080,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>678</x>
-     <y>178</y>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>281</y>
+     <y>270</y>
     </hint>
    </hints>
   </connection>
@@ -3012,11 +3096,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>260</y>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>358</y>
+     <y>340</y>
     </hint>
    </hints>
   </connection>
@@ -3028,11 +3112,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>422</y>
+     <y>393</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>435</y>
+     <y>409</y>
     </hint>
    </hints>
   </connection>
@@ -3044,11 +3128,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>503</y>
+     <y>468</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>512</y>
+     <y>480</y>
     </hint>
    </hints>
   </connection>
@@ -3060,11 +3144,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>632</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>632</x>
-     <y>588</y>
+     <y>548</y>
     </hint>
    </hints>
   </connection>
@@ -3076,11 +3160,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>675</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>675</x>
-     <y>588</y>
+     <y>548</y>
     </hint>
    </hints>
   </connection>
@@ -3092,11 +3176,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>588</y>
+     <y>548</y>
     </hint>
    </hints>
   </connection>
@@ -3108,11 +3192,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>665</y>
+     <y>617</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>667</y>
+     <y>620</y>
     </hint>
    </hints>
   </connection>
@@ -3127,7 +3211,7 @@
      <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>183</y>
     </hint>
    </hints>
@@ -3143,7 +3227,7 @@
      <y>100</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>219</y>
     </hint>
    </hints>
@@ -3159,7 +3243,7 @@
      <y>135</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>252</y>
     </hint>
    </hints>
@@ -3175,7 +3259,7 @@
      <y>233</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>350</y>
     </hint>
    </hints>
@@ -3191,7 +3275,7 @@
      <y>262</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1051</x>
+     <x>1045</x>
      <y>381</y>
     </hint>
    </hints>
@@ -3207,7 +3291,7 @@
      <y>298</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1051</x>
+     <x>1045</x>
      <y>417</y>
     </hint>
    </hints>
@@ -3223,7 +3307,7 @@
      <y>334</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1051</x>
+     <x>1045</x>
      <y>453</y>
     </hint>
    </hints>
@@ -3283,8 +3367,8 @@
    <slot>macChecksumChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1386</x>
-     <y>690</y>
+     <x>1380</x>
+     <y>660</y>
     </hint>
     <hint type="destinationlabel">
      <x>1102</x>
@@ -3300,7 +3384,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>203</y>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>678</x>
@@ -3316,11 +3400,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>281</y>
+     <y>270</y>
     </hint>
     <hint type="destinationlabel">
      <x>678</x>
-     <y>178</y>
+     <y>169</y>
     </hint>
    </hints>
   </connection>
@@ -3332,11 +3416,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>435</y>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>422</y>
+     <y>393</y>
     </hint>
    </hints>
   </connection>
@@ -3348,11 +3432,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>512</y>
+     <y>480</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>503</y>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -3364,11 +3448,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>632</x>
-     <y>588</y>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
      <x>632</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
    </hints>
   </connection>
@@ -3380,11 +3464,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>675</x>
-     <y>588</y>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
      <x>675</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
    </hints>
   </connection>
@@ -3396,11 +3480,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>588</y>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>582</y>
+     <y>541</y>
     </hint>
    </hints>
   </connection>
@@ -3412,11 +3496,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>720</x>
-     <y>667</y>
+     <y>620</y>
     </hint>
     <hint type="destinationlabel">
      <x>720</x>
-     <y>665</y>
+     <y>617</y>
     </hint>
    </hints>
   </connection>
@@ -3427,7 +3511,7 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>183</y>
     </hint>
     <hint type="destinationlabel">
@@ -3443,7 +3527,7 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>219</y>
     </hint>
     <hint type="destinationlabel">
@@ -3475,7 +3559,7 @@
    <slot>ipv4DSTIPChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>318</y>
     </hint>
     <hint type="destinationlabel">
@@ -3491,7 +3575,7 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>350</y>
     </hint>
     <hint type="destinationlabel">
@@ -3507,7 +3591,7 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1051</x>
+     <x>1045</x>
      <y>381</y>
     </hint>
     <hint type="destinationlabel">
@@ -3523,7 +3607,7 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1051</x>
+     <x>1045</x>
      <y>417</y>
     </hint>
     <hint type="destinationlabel">
@@ -3539,7 +3623,7 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1051</x>
+     <x>1045</x>
      <y>453</y>
     </hint>
     <hint type="destinationlabel">
@@ -3571,7 +3655,7 @@
    <slot>ipv4SRCIPChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1061</x>
+     <x>1055</x>
      <y>285</y>
     </hint>
     <hint type="destinationlabel">
@@ -3587,8 +3671,8 @@
    <slot>tcpDataChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>209</x>
-     <y>632</y>
+     <x>215</x>
+     <y>597</y>
     </hint>
     <hint type="destinationlabel">
      <x>512</x>
@@ -3597,14 +3681,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>pushButton_Bottom_Save</sender>
    <signal>clicked()</signal>
    <receiver>PacketSender</receiver>
    <slot>saveBtnClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>223</x>
-     <y>778</y>
+     <x>226</x>
+     <y>737</y>
     </hint>
     <hint type="destinationlabel">
      <x>511</x>
@@ -3613,14 +3697,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_4</sender>
+   <sender>pushButton_Bottom_ToQueue</sender>
    <signal>clicked()</signal>
    <receiver>PacketSender</receiver>
    <slot>toQueueBtnClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>591</x>
-     <y>771</y>
+     <x>599</x>
+     <y>730</y>
     </hint>
     <hint type="destinationlabel">
      <x>508</x>
@@ -3629,18 +3713,34 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>pushButton_Bottom_RefreshAll</sender>
    <signal>clicked()</signal>
    <receiver>PacketSender</receiver>
    <slot>refreshAllBtnClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1339</x>
-     <y>782</y>
+     <x>1324</x>
+     <y>746</y>
     </hint>
     <hint type="destinationlabel">
      <x>1328</x>
      <y>812</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget_Bottom_Packets</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>PacketSender</receiver>
+   <slot>loadPacket(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>510</x>
+     <y>712</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>670</y>
     </hint>
    </hints>
   </connection>
@@ -3710,5 +3810,6 @@
   <slot>saveBtnClicked()</slot>
   <slot>toQueueBtnClicked()</slot>
   <slot>refreshAllBtnClicked()</slot>
+  <slot>loadPacket(QListWidgetItem*)</slot>
  </slots>
 </ui>
