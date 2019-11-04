@@ -195,7 +195,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                     tcpopti = tcpopti + str(0x08) + str(0x0a) + str(hex(int(time.time())))
                 tcpPacket.options = tcpopti
 
-                ipPacket = ipPacket / tcpPacket
+                ipPacket = ipPacket / tcpPacket / self.plainTextEdit_tcp_Data.toPlainText()
             else:
                 udpPacket = inet.UDP()
 
@@ -212,7 +212,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                 if self.lineEdit_udp_Checksum.text() != "" and pkt[
                     inet.UDP].chksum != self.lineEdit_udp_Checksum.text():
                     udpPacket.chksum = int(self.lineEdit_udp_Checksum.text())
-                ipPacket = ipPacket / udpPacket
+                ipPacket = ipPacket / udpPacket / self.plainTextEdit_udp_Data.toPlainText()
 
         frame = frame / ipPacket
         # self.currentFrame = frame
@@ -273,6 +273,8 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         self.lineEdit_ipv4_SRCIP.setText(ip_packet.getfield_and_val('src')[1])
         self.lineEdit_ipv4_DSTIP.setText(ip_packet.getfield_and_val('dst')[1])
         # TODO options not implemented
+        self.plainTextEdit_ipv4_Data.clear()
+        self.plainTextEdit_ipv4_Data.appendPlainText(str(ip_packet.payload)[2:-1])
 
     def fillICMP(self, ip_packet):
         self.tab_L3_Widget.setCurrentIndex(1)
@@ -325,6 +327,8 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
     def fillEther(self, frame):
         self.lineEdit_mac_DSTMAC.setText(frame.getfield_and_val('dst')[1])
         self.lineEdit_mac_SRCMAC.setText(frame.getfield_and_val('src')[1])
+        self.plainTextEdit_mac_Data.clear()
+        self.plainTextEdit_mac_Data.appendPlainText(str(frame.payload)[2:-1])
 
     def refreshAll(self, frame=None):
         if not frame:

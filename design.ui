@@ -488,7 +488,7 @@
               <item>
                <widget class="QLabel" name="label_tcp_Data">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="text">
                  <string>Data</string>
@@ -500,7 +500,7 @@
                 <item>
                  <widget class="QPlainTextEdit" name="plainTextEdit_tcp_Data">
                   <property name="enabled">
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                   <property name="placeholderText">
                    <string/>
@@ -671,7 +671,7 @@
               <item>
                <widget class="QLabel" name="label_udp_Data">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="text">
                  <string>Data</string>
@@ -683,10 +683,10 @@
                 <item>
                  <widget class="QPlainTextEdit" name="plainTextEdit_udp_Data">
                   <property name="enabled">
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                   <property name="placeholderText">
-                   <string>Only plain text, sorry</string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
@@ -1074,7 +1074,7 @@
                 <item>
                  <widget class="QLabel" name="label_ipv4_Data">
                   <property name="enabled">
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                   <property name="text">
                    <string>Data</string>
@@ -1086,7 +1086,7 @@
                   <item>
                    <widget class="QPlainTextEdit" name="plainTextEdit_ipv4_Data">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="placeholderText">
                      <string/>
@@ -2298,7 +2298,7 @@
               <item>
                <widget class="QLabel" name="label_mac_Data">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="text">
                  <string>Data</string>
@@ -2310,7 +2310,7 @@
                 <item>
                  <widget class="QPlainTextEdit" name="plainTextEdit_mac_Data">
                   <property name="enabled">
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
