@@ -230,7 +230,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         items = self.listWidget_Bottom_Queue.count()
         for t in range(times):
             for i in range(items):
-                frame = rdpcap("./" + self.packetsDir + "/" + self.listWidget_Bottom_Queue.item(i).text())[0]
+                frame = rdpcap(os.path.normpath("./" + self.packetsDir + "/" + self.listWidget_Bottom_Queue.item(i).text()))[0]
                 l2.sendp(frame, return_packets=True, verbose=False)
             time.sleep(delay/1000)
         self.listWidget_Bottom_Queue.clear()
@@ -374,13 +374,13 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
             self.sendPacket(times, delay)
 
     def saveBtnClicked(self):
-        fname = QtWidgets.QFileDialog.getSaveFileName(self, "Choose file", "./" + self.packetsDir)[0]
+        fname = QtWidgets.QFileDialog.getSaveFileName(self, "Choose file", os.path.normpath("./" + self.packetsDir))[0]
         if fname != '':
             pcap = r"\s*\.pcap$"
             if not re.search(pcap, fname, re.MULTILINE):
-                fname = fname + ".pcap"
+                fname = os.path.normpath(fname + ".pcap")
         else:
-            fname = self.packetsDir + "/filename.pcap"
+            fname = os.path.normpath(self.packetsDir + "/filename.pcap")
         wrpcap(fname, self.getFrame())
         self.refreshPacketsBtnClicked()
 
@@ -395,14 +395,14 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
     def refreshPacketsBtnClicked(self):
         self.listWidget_Bottom_Packets.clear()
         # self.listView_Bottom_Packets.clear()
-        files = glob.glob(r"./" + self.packetsDir + r"/*.pcap")
+        files = glob.glob(os.path.normpath("./" + self.packetsDir + r"/*.pcap"))
         for file in files:
-            file = re.sub(r'\./' + self.packetsDir + r"/", r'', file)
+            file = re.sub(os.path.normpath('./' + self.packetsDir + r"/"), r'', file)
             self.listWidget_Bottom_Packets.addItem(file)
 
     def loadPacket(self, item):
         name = item.text()
-        frame = rdpcap("./" + self.packetsDir + "/" + name)[0]
+        frame = rdpcap(os.path.normpath(("./" + self.packetsDir + "/" + name)))[0]
         self.refreshAll(frame)
 
     def tcpSourcePortChanged(self):
