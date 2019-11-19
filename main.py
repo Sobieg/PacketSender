@@ -31,6 +31,7 @@ DEBUG = True  # WTF I WANT IFDEF
 # TODO: 10) Add saving packets DONE
 # TODO: 11) If not exists dir "packets", create it DONE
 # TODO: 12) Method to get packet. This packet to send, or to save. DONE
+# TODO: 13) Fix crush when save file dialog closed without choosing file
 
 
 class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
@@ -223,7 +224,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         frame = self.getFrame()
 
         for t in range(times):
-            l2.sendp(frame, return_packets=True, verbose=False)
+            l2.sendp(frame, return_packets=True, verbose=False, iface=self.comboInterfacesBox.currentText())
             time.sleep(delay / 1000)
 
     def sendQueue(self, times, delay):
@@ -231,7 +232,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         for t in range(times):
             for i in range(items):
                 frame = rdpcap(os.path.normpath("./" + self.packetsDir + "/" + self.listWidget_Bottom_Queue.item(i).text()))[0]
-                l2.sendp(frame, return_packets=True, verbose=False)
+                l2.sendp(frame, return_packets=True, verbose=False, iface=self.comboInterfacesBox.currentText())
             time.sleep(delay/1000)
         self.listWidget_Bottom_Queue.clear()
 
