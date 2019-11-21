@@ -251,6 +251,10 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
             mac = l2.getmacbyip(ip)
             if mac == "ff:ff:ff:ff:ff:ff" or mac == "00:00:00:00:00:00":
                 # tested only on Mac OS, and not working pretty well with virtual interfaces, like virtualbox interfaces
+                interface = psutil.net_if_addrs()[self.comboInterfacesBox.currentText()]
+                for addr in interface:
+                    if addr.family == psutil.AF_LINK:
+                        return addr.address
                 return psutil.net_if_addrs()[self.comboInterfacesBox.currentText()][1].address
             else:
                 return mac

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.1
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -1126,7 +1126,7 @@ class Ui_PacketSender(object):
         PacketSender.setStatusBar(self.statusBar)
 
         self.retranslateUi(PacketSender)
-        self.tab_L4_Widget.setCurrentIndex(0)
+        self.tab_L4_Widget.setCurrentIndex(1)
         self.tab_L3_Widget.setCurrentIndex(0)
         self.tab_L2_Widget.setCurrentIndex(0)
         self.tab_L4_Widget.currentChanged['int'].connect(self.spinBox_ipv4_Protocol.setProto)
@@ -1237,6 +1237,7 @@ class Ui_PacketSender(object):
         self.label_tcp_WIN.setText(_translate("PacketSender", "Window size"))
         self.spinBox_tcp_WIN.setToolTip(_translate("PacketSender", "<html><head/><body><p>SRC port</p></body></html>"))
         self.label_tcp_Checksum.setText(_translate("PacketSender", "Checksum"))
+        self.lineEdit_tcp_Checksum.setPlaceholderText(_translate("PacketSender", "0...65535"))
         self.label_tcp_UrgentPointers.setText(_translate("PacketSender", "Urgent pointers"))
         self.spinBox_tcp_Urgent.setToolTip(_translate("PacketSender", "<html><head/><body><p>SRC port</p></body></html>"))
         self.label_tcp_Options.setText(_translate("PacketSender", "Options"))
@@ -1252,6 +1253,7 @@ class Ui_PacketSender(object):
         self.label_udp_length.setText(_translate("PacketSender", "Length"))
         self.spinBox_udp_Length.setToolTip(_translate("PacketSender", "<html><head/><body><p>SRC port</p></body></html>"))
         self.label_udp_checksum.setText(_translate("PacketSender", "Checksum"))
+        self.lineEdit_udp_Checksum.setPlaceholderText(_translate("PacketSender", "0...65535"))
         self.label_udp_Data.setText(_translate("PacketSender", "Data"))
         self.pushButton_7.setText(_translate("PacketSender", "Open file"))
         self.tab_L4_Widget.setTabText(self.tab_L4_Widget.indexOf(self.udp), _translate("PacketSender", "UDP"))
@@ -1260,6 +1262,7 @@ class Ui_PacketSender(object):
         self.label_ipv4_Protocol.setText(_translate("PacketSender", "Protocol"))
         self.spinBox_ipv4_Protocol.setToolTip(_translate("PacketSender", "<html><head/><body><p>DST port</p></body></html>"))
         self.label_ipv4_Checksum.setText(_translate("PacketSender", "Checksum"))
+        self.lineEdit_ipv4_Checksum.setPlaceholderText(_translate("PacketSender", "0...65535"))
         self.label_ipv4_SRCIP.setText(_translate("PacketSender", "SRC IP"))
         self.lineEdit_ipv4_SRCIP.setInputMask(_translate("PacketSender", "000.000.000.000;_"))
         self.lineEdit_ipv4_SRCIP.setText(_translate("PacketSender", "..."))
@@ -1351,6 +1354,7 @@ class Ui_PacketSender(object):
         self.label_mac_Data.setText(_translate("PacketSender", "Data"))
         self.pushButton_5.setText(_translate("PacketSender", "Refresh"))
         self.label_mac_Checksum.setText(_translate("PacketSender", "Checksum"))
+        self.lineEdit_mac_Checksum.setPlaceholderText(_translate("PacketSender", "0...65535"))
         self.tab_L2_Widget.setTabText(self.tab_L2_Widget.indexOf(self.mac), _translate("PacketSender", "MAC"))
         self.label_3.setText(_translate("PacketSender", "Interface:"))
         self.pushButton_Bottom_Save.setText(_translate("PacketSender", "Save"))
