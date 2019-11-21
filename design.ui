@@ -23,7 +23,7 @@
       <item>
        <widget class="QTabWidget" name="tab_L4_Widget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="usesScrollButtons">
          <bool>false</bool>
@@ -408,7 +408,11 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_tcp_Checksum"/>
+               <widget class="QLineEdit" name="lineEdit_tcp_Checksum">
+                <property name="placeholderText">
+                 <string>0...65535</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -662,7 +666,11 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_udp_Checksum"/>
+               <widget class="QLineEdit" name="lineEdit_udp_Checksum">
+                <property name="placeholderText">
+                 <string>0...65535</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -818,7 +826,11 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_ipv4_Checksum"/>
+                 <widget class="QLineEdit" name="lineEdit_ipv4_Checksum">
+                  <property name="placeholderText">
+                   <string>0...65535</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>
@@ -2338,7 +2350,11 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_mac_Checksum"/>
+               <widget class="QLineEdit" name="lineEdit_mac_Checksum">
+                <property name="placeholderText">
+                 <string>0...65535</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>

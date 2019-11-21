@@ -75,6 +75,8 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
             frame.src = srcmac
         if (dstmac := self.lineEdit_mac_DSTMAC.text()) != ":::::":
             frame.dst = dstmac
+        if (crc := self.lineEdit_mac_Checksum.text()) != "":
+            frame.chksum = int(crc)
 
         if self.tab_L3_Widget.currentIndex() == 1:  # ICMP
             icmpPacket = inet.ICMP()
@@ -97,8 +99,8 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                 ipPacket.ttl = ttl
             if (proto := self.spinBox_icmp_Protocol.value()) != 0:
                 ipPacket.proto = proto
-            # if crc := self.lineEdit_tcp_Checksum.text() != "":
-            #     ipPacket.chksum = crc
+            if (crc := self.lineEdit_tcp_Checksum.text()) != "":
+                ipPacket.chksum = int(crc)
             if (src := self.lineEdit_icmp_SRCIP.text()) != "...":
                 ipPacket.src = src
             if (dst := self.lineEdit_icmp_DSTIP.text()) != "...":
@@ -141,8 +143,8 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                 ipPacket.ttl = ttl
             if (proto := self.spinBox_ipv4_Protocol.value()) != 0:
                 ipPacket.proto = proto
-            # if (crc := self.lineEdit_ipv4_Checksum.text() )!= "":
-            #     ipPacket.chksum = crc
+            if (crc := self.lineEdit_ipv4_Checksum.text()) != "":
+                ipPacket.chksum = int(crc)
             if (src := self.lineEdit_ipv4_SRCIP.text()) != "...":
                 ipPacket.src = src
             if (dst := self.lineEdit_ipv4_DSTIP.text()) != "...":
@@ -185,8 +187,8 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                                    int(self.checkBox_tcp_FIN.isChecked() << 0))
                 if (win := self.spinBox_tcp_WIN.value()) != 0:
                     tcpPacket.window = win
-                # if crc := self.lineEdit_tcp_Checksum.text() != "":
-                #     tcpPacket.chksum = crc
+                if (crc := self.lineEdit_tcp_Checksum.text()) != "":
+                    tcpPacket.chksum = int(crc)
                 if (urgP := self.spinBox_tcp_Urgent.value()) != 0:
                     tcpPacket.urgptr = urgP
                 tcpopti = ""
@@ -231,9 +233,11 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         items = self.listWidget_Bottom_Queue.count()
         for t in range(times):
             for i in range(items):
-                frame = rdpcap(os.path.normpath("./" + self.packetsDir + "/" + self.listWidget_Bottom_Queue.item(i).text()))[0]
+                frame = \
+                    rdpcap(
+                        os.path.normpath("./" + self.packetsDir + "/" + self.listWidget_Bottom_Queue.item(i).text()))[0]
                 l2.sendp(frame, return_packets=True, verbose=False, iface=self.comboInterfacesBox.currentText())
-            time.sleep(delay/1000)
+            time.sleep(delay / 1000)
         self.listWidget_Bottom_Queue.clear()
 
     def showBitChange(self, nState, bitname="", proto=""):
@@ -284,9 +288,12 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         self.spinBox_icmp_ToS.setValue(ip_packet.getfield_and_val('tos')[1])
         self.spinBox_icmp_TotalLenght.setValue(ip_packet.getfield_and_val('len')[1])
         self.spinBox_icmp_Identifier.setValue(ip_packet.getfield_and_val('id')[1])
-        self.checkBox_icmp_Res.setChecked(True if re.search("evil", str(ip_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_icmp_MF.setChecked(True if re.search("MF", str(ip_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_icmp_DF.setChecked(True if re.search("DF", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_icmp_Res.setChecked(
+            True if re.search("evil", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_icmp_MF.setChecked(
+            True if re.search("MF", str(ip_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_icmp_DF.setChecked(
+            True if re.search("DF", str(ip_packet.getfield_and_val('flags')[1])) else False)
         self.spinBox_icmp_FragmentOffset.setValue(ip_packet.getfield_and_val('frag')[1])
         self.spinBox_icmp_TTL.setValue(ip_packet.getfield_and_val('ttl')[1])
         self.spinBox_icmp_Protocol.setValue(ip_packet.getfield_and_val('proto')[1])
@@ -302,15 +309,24 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         self.spinBox_tcp_SEQ.setValue(tcp_packet.getfield_and_val('seq')[1])
         self.spinBox_tcp_ACK.setValue(tcp_packet.getfield_and_val('ack')[1])
         self.spinBox_tcp_DataOffset.setValue(tcp_packet.getfield_and_val('dataofs')[1])
-        self.checkBox_tcp_FIN.setChecked(True if re.search("F", str(tcp_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_tcp_SYN.setChecked(True if re.search("S", str(tcp_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_tcp_RST.setChecked(True if re.search("R", str(tcp_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_tcp_PSH.setChecked(True if re.search("P", str(tcp_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_tcp_ACK.setChecked(True if re.search("A", str(tcp_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_tcp_URG.setChecked(True if re.search("U", str(tcp_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_tcp_ECE.setChecked(True if re.search("E", str(tcp_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_tcp_CWR.setChecked(True if re.search("C", str(tcp_packet.getfield_and_val('flags')[1])) else False)
-        self.checkBox_tcp_Res4.setChecked(True if re.search("N", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_FIN.setChecked(
+            True if re.search("F", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_SYN.setChecked(
+            True if re.search("S", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_RST.setChecked(
+            True if re.search("R", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_PSH.setChecked(
+            True if re.search("P", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_ACK.setChecked(
+            True if re.search("A", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_URG.setChecked(
+            True if re.search("U", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_ECE.setChecked(
+            True if re.search("E", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_CWR.setChecked(
+            True if re.search("C", str(tcp_packet.getfield_and_val('flags')[1])) else False)
+        self.checkBox_tcp_Res4.setChecked(
+            True if re.search("N", str(tcp_packet.getfield_and_val('flags')[1])) else False)
         self.checkBox_tcp_Res3.setChecked(True if tcp_packet.getfield_and_val('reserved')[1] >> 2 & 1 else False)
         self.checkBox_tcp_Res2.setChecked(True if tcp_packet.getfield_and_val('reserved')[1] >> 1 & 1 else False)
         self.checkBox_tcp_Res1.setChecked(True if tcp_packet.getfield_and_val('reserved')[1] >> 0 & 1 else False)
@@ -323,7 +339,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         self.spinBox_udp_SRCPort.setValue(udp_packet.getfield_and_val('sport')[1])
         self.spinBox_udp_DSTPort.setValue(udp_packet.getfield_and_val('dport')[1])
         self.spinBox_udp_Length.setValue(udp_packet.getfield_and_val('len')[1])
-        #TODO checksim not implemented
+        # TODO checksim not implemented
 
     def fillEther(self, frame):
         self.lineEdit_mac_DSTMAC.setText(frame.getfield_and_val('dst')[1])
@@ -374,7 +390,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
         delay = self.delaySpinBox.value()
         print("pushed button send with times = ", times, " delay = ", delay)
         if self.listWidget_Bottom_Queue.count() != 0:
-            self.sendQueue(times,delay)
+            self.sendQueue(times, delay)
         else:
             self.sendPacket(times, delay)
 
