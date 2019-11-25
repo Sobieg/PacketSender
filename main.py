@@ -32,6 +32,7 @@ DEBUG = True  # WTF I WANT IFDEF
 # TODO: 11) If not exists dir "packets", create it DONE
 # TODO: 12) Method to get packet. This packet to send, or to save. DONE
 # TODO: 13) Fix crush when save file dialog closed without choosing file
+# TODO: 14) Fix too big size, scroll area maybe?
 
 
 class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
@@ -99,7 +100,7 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
                 ipPacket.ttl = ttl
             if (proto := self.spinBox_icmp_Protocol.value()) != 0:
                 ipPacket.proto = proto
-            if (crc := self.lineEdit_tcp_Checksum.text()) != "":
+            if (crc := self.lineEdit_icmp_Checksum_2.text()) != "":
                 ipPacket.chksum = int(crc)
             if (src := self.lineEdit_icmp_SRCIP.text()) != "...":
                 ipPacket.src = src
@@ -119,9 +120,15 @@ class PacketSender(QtWidgets.QMainWindow, design.Ui_PacketSender):
 
             if (type := self.spinBox_icmp_Type.value()) != 0:
                 icmpPacket.type = type
+            else:
+                icmpPacket.type = 0
             if (code := self.spinBox_icmp_Code.value()) != 0:
                 icmpPacket.code = code
-            ipPacket = ipPacket / icmpPacket
+            else:
+                icmpPacket.code = 0
+            if (crc := self.lineEdit_icmp_Checksum.text()) != "":
+                icmpPacket.chksum = int(crc)
+            ipPacket = ipPacket / icmpPacket / self.plainTextEdit_icmp_Data.toPlainText()
         else:
             ipPacket = inet.IP()
             if (ipVer := self.spinBox_ipv4_Version.value()) != 0:
