@@ -1181,7 +1181,7 @@ class Ui_PacketSender(object):
         PacketSender.setStatusBar(self.statusBar)
 
         self.retranslateUi(PacketSender)
-        self.tab_L4_Widget.setCurrentIndex(1)
+        self.tab_L4_Widget.setCurrentIndex(0)
         self.tab_L3_Widget.setCurrentIndex(0)
         self.tab_L2_Widget.setCurrentIndex(0)
         self.tab_L4_Widget.currentChanged['int'].connect(self.spinBox_ipv4_Protocol.setProto)

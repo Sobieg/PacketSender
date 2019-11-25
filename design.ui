@@ -169,7 +169,7 @@
       <item>
        <widget class="QTabWidget" name="tab_L4_Widget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="usesScrollButtons">
          <bool>false</bool>
