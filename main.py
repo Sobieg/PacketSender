@@ -9,7 +9,7 @@ import glob
 from scapy.layers import inet, l2
 from scapy.all import wrpcap, rdpcap
 
-from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets
 
 import design
 
@@ -685,7 +685,7 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     window = PacketSender()
     window.show()
-    app.exec_()
+    app.exec()
 
 
 if __name__ == '__main__':
